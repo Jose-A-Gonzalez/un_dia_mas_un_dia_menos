@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Un día más, un día menos ❤️</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            background-color: #0f172a;
+            background-image: url('https://i.postimg.cc/fyLPY2xj/Whats-App-Image-2026-06-24-at-10-42-59-PM.jpg');
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            color: white;
+            text-shadow: 3px 3px 12px rgba(0, 0, 0, 0.9);
+            padding-top: 110px;
+        }
+
+        h1 {
+            font-size: 5.2rem;
+            margin-bottom: 100px;
+            line-height: 1;
+        }
+
+        #countdown {
+            margin-top: auto;
+            margin-bottom: 65px;
+            text-align: center;
+        }
+
+        .days-number {
+            font-size: 6.3rem;
+            font-weight: 700;
+            line-height: 1;
+            display: block;
+        }
+
+        .days-label {
+            font-size: 1.45rem;
+            font-weight: 400;
+            display: block;
+            margin-top: -8px;
+            margin-bottom: 22px;
+            opacity: 0.9;
+        }
+
+        .time {
+            font-size: 2rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        /* === Estilos de la música === */
+        #music-controls {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 6px;
+            z-index: 100;
+        }
+
+        #music-btn {
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            backdrop-filter: blur(12px);
+            transition: all 0.3s ease;
+            text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        #music-btn:hover {
+            background: rgba(255, 255, 255, 0.22);
+            transform: scale(1.03);
+        }
+
+        #now-playing {
+            font-size: 0.9rem;
+            opacity: 0.85;
+            text-align: right;
+            padding-right: 6px;
+            max-width: 220px;
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 3.9rem; }
+            .days-number { font-size: 5rem; }
+            .days-label { font-size: 1.2rem; margin-bottom: 15px; }
+            .time { font-size: 1.55rem; }
+            #music-controls { bottom: 15px; right: 15px; }
+        }
+    </style>
+</head>
+<body>
+    <h1>👩🏾‍🤝‍👨🏽</h1>
+
+    <div id="countdown"></div>
+
+    <!-- Controles de música -->
+    <div id="music-controls">
+        <div id="now-playing">🎵 Presiona play para comenzar</div>
+        <button id="music-btn">▶️ Reproducir música</button>
+    </div>
+
+    <audio id="player"></audio>
+
+    <script>
+        // === Cuenta regresiva ===
+        const targetDate = new Date("2026-12-18T00:00:00").getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance < 0) {
+                document.getElementById("countdown").innerHTML = 
+                    `<span style="font-size: 2.6rem;">¡Llegó el día! ❤️</span>`;
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            const daysLabel = days === 1 ? "día" : "días";
+
+            document.getElementById("countdown").innerHTML = `
+                <span class="days-number">${days}</span>
+                <span class="days-label">${daysLabel}</span>
+                <span class="time">${hours}h ${minutes}m ${seconds}s</span>
+            `;
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // === Playlist ===
+        const playlist = [
+            { src: "music/Coincidir.mp3", title: "Canción 1 - Coincidir" },
+            { src: "music/cancion2.mp3", title: "Canción 2 - (pon aquí el nombre)" },
+            { src: "music/cancion3.mp3", title: "Canción 3 - (pon aquí el nombre)" }
+        ];
+
+        let currentTrack = 0;
+        const player = document.getElementById('player');
+        const btn = document.getElementById('music-btn');
+        const nowPlaying = document.getElementById('now-playing');
+
+        function loadTrack(index) {
+            currentTrack = index;
+            player.src = playlist[index].src;
+            nowPlaying.textContent = `🎵 ${playlist[index].title}`;
+        }
+
+        function togglePlay() {
+            if (player.paused || player.ended) {
+                player.play().then(() => {
+                    btn.innerHTML = '⏸️ Pausar música';
+                }).catch(() => {
+                    alert("No se pudo reproducir la música.\nAsegúrate de tener los archivos MP3 dentro de la carpeta 'music/'.");
+                });
+            } else {
+                player.pause();
+                btn.innerHTML = '▶️ Reproducir música';
+            }
+        }
+
+        btn.addEventListener('click', togglePlay);
+
+        // Cuando termina una canción, pasa a la siguiente
+        player.addEventListener('ended', () => {
+            currentTrack = (currentTrack + 1) % playlist.length;
+            loadTrack(currentTrack);
+            player.play().catch(() => {});
+        });
+
+        // Cargar la primera canción
+        loadTrack(0);
+    </script>
+</body>
+</html>
