@@ -62,7 +62,7 @@
             letter-spacing: 1px;
         }
 
-        /* === Estilos de la música === */
+        /* === Música === */
         #music-controls {
             position: fixed;
             bottom: 25px;
@@ -78,9 +78,9 @@
             background: rgba(255, 255, 255, 0.12);
             border: 1px solid rgba(255, 255, 255, 0.3);
             color: white;
-            padding: 12px 24px;
+            padding: 14px 26px;
             border-radius: 50px;
-            font-size: 1rem;
+            font-size: 1.05rem;
             font-weight: 500;
             cursor: pointer;
             backdrop-filter: blur(12px);
@@ -102,7 +102,7 @@
             opacity: 0.85;
             text-align: right;
             padding-right: 6px;
-            max-width: 220px;
+            max-width: 230px;
         }
 
         @media (max-width: 600px) {
@@ -121,8 +121,8 @@
 
     <!-- Controles de música -->
     <div id="music-controls">
-        <div id="now-playing">🎵 Presiona play para comenzar</div>
-        <button id="music-btn">▶️ Reproducir música</button>
+        <div id="now-playing">🎵 Nuestra playlist</div>
+        <button id="music-btn">▶️ Toca para escuchar</button>
     </div>
 
     <audio id="player"></audio>
@@ -160,9 +160,9 @@
 
         // === Playlist ===
         const playlist = [
-            { src: "music/Coincidir.mp3", title: "Canción 1 - Coincidir" },
-            { src: "music/cancion2.mp3", title: "Canción 2 - (pon aquí el nombre)" },
-            { src: "music/cancion3.mp3", title: "Canción 3 - (pon aquí el nombre)" }
+            { src: "music/Coincidir.mp3", title: "Coincidir" },
+            { src: "music/cancion2.mp3", title: "Canción 2 - (cambia el nombre)" },
+            { src: "music/cancion3.mp3", title: "Canción 3 - (cambia el nombre)" }
         ];
 
         let currentTrack = 0;
@@ -181,25 +181,37 @@
                 player.play().then(() => {
                     btn.innerHTML = '⏸️ Pausar música';
                 }).catch(() => {
-                    alert("No se pudo reproducir la música.\nAsegúrate de tener los archivos MP3 dentro de la carpeta 'music/'.");
+                    alert("No se pudo reproducir. Revisa que los archivos estén en la carpeta music/");
                 });
             } else {
                 player.pause();
-                btn.innerHTML = '▶️ Reproducir música';
+                btn.innerHTML = '▶️ Reanudar';
             }
         }
 
         btn.addEventListener('click', togglePlay);
 
-        // Cuando termina una canción, pasa a la siguiente
+        // Cuando termina una canción → pasa a la siguiente
         player.addEventListener('ended', () => {
             currentTrack = (currentTrack + 1) % playlist.length;
             loadTrack(currentTrack);
             player.play().catch(() => {});
         });
 
-        // Cargar la primera canción
+        // Cargar primera canción
         loadTrack(0);
+
+        // === Intentar reproducir automáticamente al abrir la página ===
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                player.play().then(() => {
+                    btn.innerHTML = '⏸️ Pausar música';
+                }).catch(() => {
+                    // El navegador bloqueó el autoplay (es normal la primera vez)
+                    console.log('Autoplay bloqueado por el navegador');
+                });
+            }, 600);
+        });
     </script>
 </body>
 </html>
