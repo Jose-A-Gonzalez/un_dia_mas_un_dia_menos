@@ -5,12 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Un día más, un día menos ❤️</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             min-height: 100vh;
             display: flex;
@@ -27,46 +22,17 @@
             text-shadow: 3px 3px 12px rgba(0, 0, 0, 0.9);
             padding-top: 110px;
         }
+        h1 { font-size: 5.2rem; margin-bottom: 100px; }
+        #countdown { margin-top: auto; margin-bottom: 65px; text-align: center; }
+        .days-number { font-size: 6.3rem; font-weight: 700; line-height: 1; display: block; }
+        .days-label { font-size: 1.45rem; font-weight: 400; display: block; margin-top: -8px; margin-bottom: 22px; opacity: 0.9; }
+        .time { font-size: 2rem; font-weight: 500; letter-spacing: 1px; }
 
-        h1 {
-            font-size: 5.2rem;
-            margin-bottom: 100px;
-            line-height: 1;
-        }
-
-        #countdown {
-            margin-top: auto;
-            margin-bottom: 65px;
-            text-align: center;
-        }
-
-        .days-number {
-            font-size: 6.3rem;
-            font-weight: 700;
-            line-height: 1;
-            display: block;
-        }
-
-        .days-label {
-            font-size: 1.45rem;
-            font-weight: 400;
-            display: block;
-            margin-top: -8px;
-            margin-bottom: 22px;
-            opacity: 0.9;
-        }
-
-        .time {
-            font-size: 2rem;
-            font-weight: 500;
-            letter-spacing: 1px;
-        }
-
-        /* === Música === */
+        /* === Controles de música === */
         #music-controls {
             position: fixed;
-            bottom: 25px;
-            right: 25px;
+            bottom: 20px;
+            right: 20px;
             display: flex;
             flex-direction: column;
             align-items: flex-end;
@@ -74,60 +40,74 @@
             z-index: 100;
         }
 
-        #music-btn {
-            background: rgba(255, 255, 255, 0.12);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            color: white;
-            padding: 16px 28px;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: 500;
-            cursor: pointer;
-            backdrop-filter: blur(12px);
-            transition: all 0.3s ease;
-            text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.8);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
-        }
-
-        #music-btn:hover {
-            background: rgba(255, 255, 255, 0.25);
-            transform: scale(1.04);
-        }
-
         #now-playing {
             font-size: 0.95rem;
             opacity: 0.9;
             text-align: right;
-            padding-right: 4px;
+            margin-bottom: 4px;
+        }
+
+        .music-buttons {
+            display: flex;
+            gap: 8px;
+            background: rgba(255,255,255,0.08);
+            padding: 6px;
+            border-radius: 50px;
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .music-buttons button {
+            background: rgba(255,255,255,0.15);
+            border: none;
+            color: white;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            font-size: 1.3rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .music-buttons button:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.1);
+        }
+
+        #play-btn {
+            width: 56px;
+            height: 56px;
+            font-size: 1.5rem;
         }
 
         @media (max-width: 600px) {
             h1 { font-size: 3.9rem; }
             .days-number { font-size: 5rem; }
-            .days-label { font-size: 1.2rem; margin-bottom: 15px; }
-            .time { font-size: 1.55rem; }
-            #music-controls { bottom: 15px; right: 15px; }
+            #music-controls { bottom: 12px; right: 12px; }
         }
     </style>
 </head>
 <body>
     <h1>👩🏾‍🤝‍👨🏽</h1>
-
     <div id="countdown"></div>
 
     <!-- Controles de música -->
     <div id="music-controls">
-        <div id="now-playing">🎵 Toca el botón para comenzar</div>
-        <button id="music-btn">▶️ Escuchar nuestra música ❤️</button>
+        <div id="now-playing">🎵 Toca play para comenzar</div>
+        
+        <div class="music-buttons">
+            <button onclick="prevTrack()">⏮️</button>
+            <button id="play-btn" onclick="togglePlay()">▶️</button>
+            <button onclick="nextTrack()">⏭️</button>
+        </div>
     </div>
 
     <audio id="player"></audio>
 
     <script>
-        // === Cuenta regresiva ===
         const targetDate = new Date("2026-12-18T00:00:00").getTime();
 
         function updateCountdown() {
@@ -144,7 +124,6 @@
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
             const daysLabel = days === 1 ? "día" : "días";
 
             document.getElementById("countdown").innerHTML = `
@@ -157,14 +136,23 @@
         setInterval(updateCountdown, 1000);
         updateCountdown();
 
-        // === Playlist ===
+        // === PLAYLIST (puedes agregar hasta 10 canciones) ===
         const playlist = [
-            { src: "music/Coincidir.mp3", title: "Coincidir" }
+            { src: "music/Coincidir.mp3", title: "Coincidir" },
+            { src: "music/Creo_en_ti.mp3", title: "Creo en ti" },
+            { src: "music/cancion3.mp3", title: "Canción 3" },
+            { src: "music/cancion4.mp3", title: "Canción 4" },
+            { src: "music/cancion5.mp3", title: "Canción 5" },
+            { src: "music/cancion6.mp3", title: "Canción 6" },
+            { src: "music/cancion7.mp3", title: "Canción 7" },
+            { src: "music/cancion8.mp3", title: "Canción 8" },
+            { src: "music/cancion9.mp3", title: "Canción 9" },
+            { src: "music/cancion10.mp3", title: "Canción 10" }
         ];
 
         let currentTrack = 0;
         const player = document.getElementById('player');
-        const btn = document.getElementById('music-btn');
+        const playBtn = document.getElementById('play-btn');
         const nowPlaying = document.getElementById('now-playing');
 
         function loadTrack(index) {
@@ -176,35 +164,44 @@
         function togglePlay() {
             if (player.paused || player.ended) {
                 player.play().then(() => {
-                    btn.innerHTML = '⏸️ Pausar música';
-                    nowPlaying.textContent = `🎵 ${playlist[currentTrack].title}`;
+                    playBtn.innerHTML = '⏸️';
                 }).catch(() => {
-                    alert("No se pudo reproducir la música.");
+                    alert("No se pudo reproducir la música.\nRevisa que el archivo exista en la carpeta music/");
                 });
             } else {
                 player.pause();
-                btn.innerHTML = '▶️ Reanudar';
+                playBtn.innerHTML = '▶️';
             }
         }
 
-        btn.addEventListener('click', togglePlay);
+        function nextTrack() {
+            currentTrack = (currentTrack + 1) % playlist.length;
+            loadTrack(currentTrack);
+            player.play().then(() => {
+                playBtn.innerHTML = '⏸️';
+            }).catch(() => {});
+        }
+
+        function prevTrack() {
+            currentTrack = (currentTrack - 1 + playlist.length) % playlist.length;
+            loadTrack(currentTrack);
+            player.play().then(() => {
+                playBtn.innerHTML = '⏸️';
+            }).catch(() => {});
+        }
 
         player.addEventListener('ended', () => {
-            loadTrack(0);
-            player.play().catch(() => {});
+            nextTrack();
         });
 
         loadTrack(0);
 
-        // === Intentar autoplay (puede fallar por el navegador) ===
+        // Intentar autoplay
         window.addEventListener('load', () => {
             setTimeout(() => {
                 player.play().then(() => {
-                    btn.innerHTML = '⏸️ Pausar música';
-                }).catch(() => {
-                    // El navegador bloqueó el autoplay (esto es normal)
-                    console.log('%c[Info] Autoplay bloqueado por el navegador', 'color:#888');
-                });
+                    playBtn.innerHTML = '⏸️';
+                }).catch(() => {});
             }, 500);
         });
     </script>
