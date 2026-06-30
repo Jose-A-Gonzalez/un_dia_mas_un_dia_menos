@@ -70,7 +70,7 @@
             display: flex;
             flex-direction: column;
             align-items: flex-end;
-            gap: 6px;
+            gap: 8px;
             z-index: 100;
         }
 
@@ -78,9 +78,9 @@
             background: rgba(255, 255, 255, 0.12);
             border: 1px solid rgba(255, 255, 255, 0.3);
             color: white;
-            padding: 14px 26px;
+            padding: 16px 28px;
             border-radius: 50px;
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             font-weight: 500;
             cursor: pointer;
             backdrop-filter: blur(12px);
@@ -88,21 +88,20 @@
             text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.8);
             display: flex;
             align-items: center;
-            gap: 8px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            gap: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
         }
 
         #music-btn:hover {
-            background: rgba(255, 255, 255, 0.22);
-            transform: scale(1.03);
+            background: rgba(255, 255, 255, 0.25);
+            transform: scale(1.04);
         }
 
         #now-playing {
-            font-size: 0.9rem;
-            opacity: 0.85;
+            font-size: 0.95rem;
+            opacity: 0.9;
             text-align: right;
-            padding-right: 6px;
-            max-width: 230px;
+            padding-right: 4px;
         }
 
         @media (max-width: 600px) {
@@ -121,8 +120,8 @@
 
     <!-- Controles de música -->
     <div id="music-controls">
-        <div id="now-playing">🎵 Nuestra playlist</div>
-        <button id="music-btn">▶️ Toca para escuchar</button>
+        <div id="now-playing">🎵 Toca el botón para comenzar</div>
+        <button id="music-btn">▶️ Escuchar nuestra música ❤️</button>
     </div>
 
     <audio id="player"></audio>
@@ -160,9 +159,7 @@
 
         // === Playlist ===
         const playlist = [
-            { src: "music/Coincidir.mp3", title: "Coincidir" },
-            { src: "music/cancion2.mp3", title: "Canción 2 - (cambia el nombre)" },
-            { src: "music/cancion3.mp3", title: "Canción 3 - (cambia el nombre)" }
+            { src: "music/Coincidir.mp3", title: "Coincidir" }
         ];
 
         let currentTrack = 0;
@@ -180,8 +177,9 @@
             if (player.paused || player.ended) {
                 player.play().then(() => {
                     btn.innerHTML = '⏸️ Pausar música';
+                    nowPlaying.textContent = `🎵 ${playlist[currentTrack].title}`;
                 }).catch(() => {
-                    alert("No se pudo reproducir. Revisa que los archivos estén en la carpeta music/");
+                    alert("No se pudo reproducir la música.");
                 });
             } else {
                 player.pause();
@@ -191,26 +189,23 @@
 
         btn.addEventListener('click', togglePlay);
 
-        // Cuando termina una canción → pasa a la siguiente
         player.addEventListener('ended', () => {
-            currentTrack = (currentTrack + 1) % playlist.length;
-            loadTrack(currentTrack);
+            loadTrack(0);
             player.play().catch(() => {});
         });
 
-        // Cargar primera canción
         loadTrack(0);
 
-        // === Intentar reproducir automáticamente al abrir la página ===
+        // === Intentar autoplay (puede fallar por el navegador) ===
         window.addEventListener('load', () => {
             setTimeout(() => {
                 player.play().then(() => {
                     btn.innerHTML = '⏸️ Pausar música';
                 }).catch(() => {
-                    // El navegador bloqueó el autoplay (es normal la primera vez)
-                    console.log('Autoplay bloqueado por el navegador');
+                    // El navegador bloqueó el autoplay (esto es normal)
+                    console.log('%c[Info] Autoplay bloqueado por el navegador', 'color:#888');
                 });
-            }, 600);
+            }, 500);
         });
     </script>
 </body>
