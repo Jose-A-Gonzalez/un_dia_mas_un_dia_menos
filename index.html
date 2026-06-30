@@ -39,14 +39,12 @@
             gap: 8px;
             z-index: 100;
         }
-
         #now-playing {
             font-size: 0.95rem;
             opacity: 0.9;
             text-align: right;
             margin-bottom: 4px;
         }
-
         .music-buttons {
             display: flex;
             gap: 8px;
@@ -56,7 +54,6 @@
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255,255,255,0.2);
         }
-
         .music-buttons button {
             background: rgba(255,255,255,0.15);
             border: none;
@@ -71,18 +68,15 @@
             justify-content: center;
             transition: all 0.3s ease;
         }
-
         .music-buttons button:hover {
             background: rgba(255,255,255,0.3);
             transform: scale(1.1);
         }
-
         #play-btn {
             width: 56px;
             height: 56px;
             font-size: 1.5rem;
         }
-
         @media (max-width: 600px) {
             h1 { font-size: 3.9rem; }
             .days-number { font-size: 5rem; }
@@ -96,8 +90,7 @@
 
     <!-- Controles de música -->
     <div id="music-controls">
-        <div id="now-playing">🎵 Toca play para comenzar</div>
-        
+        <div id="now-playing">🎵 Toca el botón para comenzar</div>
         <div class="music-buttons">
             <button onclick="prevTrack()">⏮️</button>
             <button id="play-btn" onclick="togglePlay()">▶️</button>
@@ -108,6 +101,20 @@
     <audio id="player"></audio>
 
     <script>
+        // =============================================
+        // SISTEMA DE VERSIÓN (Auto-actualización)
+        // =============================================
+        const APP_VERSION = 1; // ← CAMBIA ESTE NÚMERO CADA VEZ QUE ACTUALICES LA PÁGINA
+
+        const savedVersion = localStorage.getItem('app_version');
+        if (savedVersion !== null && parseInt(savedVersion) !== APP_VERSION) {
+            localStorage.setItem('app_version', APP_VERSION);
+            location.reload(true); // Fuerza recarga desde el servidor
+        } else {
+            localStorage.setItem('app_version', APP_VERSION);
+        }
+
+        // === Cuenta regresiva ===
         const targetDate = new Date("2026-12-18T00:00:00").getTime();
 
         function updateCountdown() {
@@ -136,7 +143,7 @@
         setInterval(updateCountdown, 1000);
         updateCountdown();
 
-        // === PLAYLIST (puedes agregar hasta 10 canciones) ===
+        // === PLAYLIST ===
         const playlist = [
             { src: "music/Coincidir.mp3", title: "Coincidir" },
             { src: "music/Creo_en_ti.mp3", title: "Creo en ti" }
