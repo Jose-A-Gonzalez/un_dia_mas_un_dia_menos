@@ -12,7 +12,7 @@
             --soft-white: rgba(255, 250, 246, 0.78);
             --glass: rgba(13, 17, 28, 0.40);
             --glass-border: rgba(255, 255, 255, 0.18);
-            --accent: #f1b8ab;
+            --accent: #72d99a;
         }
 
         * {
@@ -172,6 +172,7 @@
         }
 
         .music-player {
+            position: relative;
             display: flex;
             align-items: center;
             gap: 12px;
@@ -184,6 +185,19 @@
             box-shadow: 0 14px 38px rgba(0, 0, 0, 0.32);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
+            transition: width 240ms ease, padding 240ms ease, gap 240ms ease;
+        }
+
+        .music-player.is-compact {
+            width: clamp(126px, 18svh, 150px);
+            padding: clamp(5px, 0.9svh, 8px);
+            justify-content: center;
+            gap: 0;
+        }
+
+        .music-player.is-compact .track,
+        .music-player.is-compact .collapse-player-btn {
+            display: none;
         }
 
         .track {
@@ -246,6 +260,25 @@
             transform: scale(1.04);
         }
 
+        .collapse-player-btn {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            width: 24px;
+            height: 24px;
+            border: 1px solid var(--glass-border);
+            background: rgba(13, 17, 28, 0.92);
+            box-shadow: 0 7px 18px rgba(0, 0, 0, 0.35);
+            font-size: 1rem;
+            line-height: 1;
+        }
+
+        .collapse-player-btn:hover,
+        .collapse-player-btn:focus-visible {
+            background: rgba(35, 39, 52, 0.96);
+            transform: scale(1.05);
+        }
+
         .arrived {
             grid-column: 1 / -1;
             padding: 14px;
@@ -291,7 +324,13 @@
 
             .music-player {
                 width: min(100%, 340px, 42svh);
+                justify-self: center;
                 justify-content: space-between;
+                margin-right: max(0px, env(safe-area-inset-right));
+            }
+
+            .music-player.is-compact {
+                justify-self: end;
             }
 
             .track {
@@ -321,7 +360,8 @@
         <div aria-hidden="true"></div>
 
         <section class="bottom" aria-label="Cuenta regresiva para nuestro encuentro">
-            <div class="music-player" aria-label="Reproductor de nuestra música">
+            <div class="music-player is-compact" aria-label="Reproductor de nuestra música" aria-expanded="false">
+                <button class="collapse-player-btn" id="collapse-player-btn" type="button" aria-label="Ocultar nombre de la canción">−</button>
                 <div class="track">
                     <span class="track-kicker">Nuestra canción</span>
                     <span id="now-playing">Coincidir</span>
@@ -346,7 +386,7 @@
         </section>
     </main>
 
-    <audio id="player" preload="metadata"></audio>
+    <audio id="player" preload="metadata" autoplay></audio>
 
     <script>
         const targetDate = new Date("2026-12-18T12:50:00-05:00").getTime();
@@ -398,8 +438,20 @@
 
         let currentTrack = 0;
         const player = document.getElementById("player");
+        const musicPlayer = document.querySelector(".music-player");
         const playBtn = document.getElementById("play-btn");
+        const collapsePlayerBtn = document.getElementById("collapse-player-btn");
         const nowPlaying = document.getElementById("now-playing");
+
+        function expandPlayer() {
+            musicPlayer.classList.remove("is-compact");
+            musicPlayer.setAttribute("aria-expanded", "true");
+        }
+
+        function collapsePlayer() {
+            musicPlayer.classList.add("is-compact");
+            musicPlayer.setAttribute("aria-expanded", "false");
+        }
 
         function syncPlayerState() {
             const isPlaying = !player.paused && !player.ended;
@@ -422,13 +474,26 @@
             }
         }
 
-        function changeTrack(direction) {
+        async function tryAutoplay() {
+            try {
+                await player.play();
+            } catch (error) {
+                collapsePlayer();
+                syncPlayerState();
+            }
+        }
+
+        function changeTrack(direction, revealPlayer = true) {
+            if (revealPlayer) {
+                expandPlayer();
+            }
             currentTrack = (currentTrack + direction + playlist.length) % playlist.length;
             loadTrack(currentTrack);
             playCurrentTrack();
         }
 
         playBtn.addEventListener("click", () => {
+            expandPlayer();
             if (player.paused || player.ended) {
                 playCurrentTrack();
             } else {
@@ -438,9 +503,13 @@
 
         document.getElementById("prev-btn").addEventListener("click", () => changeTrack(-1));
         document.getElementById("next-btn").addEventListener("click", () => changeTrack(1));
-        player.addEventListener("play", syncPlayerState);
+        collapsePlayerBtn.addEventListener("click", collapsePlayer);
+        player.addEventListener("play", () => {
+            syncPlayerState();
+            expandPlayer();
+        });
         player.addEventListener("pause", syncPlayerState);
-        player.addEventListener("ended", () => changeTrack(1));
+        player.addEventListener("ended", () => changeTrack(1, false));
         player.addEventListener("error", () => {
             syncPlayerState();
             nowPlaying.textContent = "No se pudo cargar la canción";
@@ -448,6 +517,7 @@
 
         loadTrack(0);
         syncPlayerState();
+        tryAutoplay();
     </script>
 </body>
 </html>
