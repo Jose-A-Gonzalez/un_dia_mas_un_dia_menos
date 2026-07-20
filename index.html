@@ -3,207 +3,451 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#0a0d16">
     <title>Un día más, un día menos ❤️</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --white: #fffaf6;
+            --soft-white: rgba(255, 250, 246, 0.78);
+            --glass: rgba(13, 17, 28, 0.40);
+            --glass-border: rgba(255, 255, 255, 0.18);
+            --accent: #f1b8ab;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
         body {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: center;
-            background-color: #0f172a;
-            background-image: url('https://i.postimg.cc/fyLPY2xj/Whats-App-Image-2026-06-24-at-10-42-59-PM.jpg');
-            background-size: contain;
+            min-height: 100%;
+        }
+
+        body {
+            min-height: 100svh;
+            overflow: hidden;
+            background: #0a0d16;
+            color: var(--white);
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: -3;
+            background-image: url("https://i.postimg.cc/fyLPY2xj/Whats-App-Image-2026-06-24-at-10-42-59-PM.jpg");
+            background-position: center;
+            background-size: cover;
+            filter: saturate(0.82) brightness(0.58);
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            background:
+                linear-gradient(180deg, rgba(3, 6, 13, 0.63) 0%, rgba(3, 6, 13, 0.02) 36%, rgba(3, 6, 13, 0.28) 58%, rgba(3, 6, 13, 0.92) 100%),
+                linear-gradient(90deg, rgba(3, 6, 13, 0.42), transparent 32%, transparent 68%, rgba(3, 6, 13, 0.42));
+        }
+
+        .photo {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            background-image: url("https://i.postimg.cc/fyLPY2xj/Whats-App-Image-2026-06-24-at-10-42-59-PM.jpg");
             background-position: center;
             background-repeat: no-repeat;
-            font-family: 'Segoe UI', system-ui, sans-serif;
-            color: white;
-            text-shadow: 3px 3px 12px rgba(0, 0, 0, 0.9);
-            padding-top: 110px;
+            background-size: contain;
         }
-        h1 { font-size: 5.2rem; margin-bottom: 100px; }
-        #countdown { margin-top: auto; margin-bottom: 65px; text-align: center; }
-        .days-number { font-size: 6.3rem; font-weight: 700; line-height: 1; display: block; }
-        .days-label { font-size: 1.45rem; font-weight: 400; display: block; margin-top: -8px; margin-bottom: 22px; opacity: 0.9; }
-        .time { font-size: 2rem; font-weight: 500; letter-spacing: 1px; }
 
-        /* === Controles de música === */
-        #music-controls {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            gap: 8px;
-            z-index: 100;
+        .page {
+            position: relative;
+            width: min(100%, 1180px);
+            min-height: 100svh;
+            margin: 0 auto;
+            padding: clamp(24px, 4vw, 54px);
+            padding-bottom: clamp(10px, 1.5svh, 18px);
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            gap: 24px;
         }
-        #now-playing {
-            font-size: 0.95rem;
-            opacity: 0.9;
-            text-align: right;
-            margin-bottom: 4px;
+
+        .intro {
+            text-align: center;
+            animation: reveal 900ms ease-out both;
         }
-        .music-buttons {
-            display: flex;
-            gap: 8px;
-            background: rgba(255,255,255,0.08);
-            padding: 6px;
-            border-radius: 50px;
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255,255,255,0.2);
+
+        .eyebrow {
+            margin-bottom: 8px;
+            color: var(--soft-white);
+            font-size: clamp(0.72rem, 1.4vw, 0.88rem);
+            font-weight: 650;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
         }
-        .music-buttons button {
-            background: rgba(255,255,255,0.15);
-            border: none;
-            color: white;
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            font-size: 1.3rem;
-            cursor: pointer;
+
+        h1 {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(1.8rem, 4vw, 3.25rem);
+            font-weight: 400;
+            letter-spacing: -0.025em;
+            text-shadow: 0 3px 24px rgba(0, 0, 0, 0.65);
+        }
+
+        .heart {
+            color: var(--accent);
+            font-style: normal;
+        }
+
+        .bottom {
+            align-self: end;
+            display: grid;
+            justify-items: center;
+            gap: clamp(8px, 1.8svh, 16px);
+            animation: rise 850ms 120ms ease-out both;
+        }
+
+        .countdown-card {
+            width: min(660px, 74svh, calc(100vw - 28px));
+            padding: clamp(12px, 2.6svh, 28px);
+            border: 1px solid var(--glass-border);
+            border-radius: clamp(18px, 3svh, 28px);
+            background: var(--glass);
+            box-shadow: 0 26px 70px rgba(0, 0, 0, 0.42);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+        }
+
+        .countdown-title {
+            margin-bottom: clamp(8px, 2svh, 18px);
+            text-align: center;
+            color: var(--soft-white);
+            font-size: clamp(0.68rem, 1.8svh, 1rem);
+            letter-spacing: 0.04em;
+        }
+
+        .countdown {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: clamp(4px, 1.2svh, 14px);
+        }
+
+        .time-unit {
+            min-width: 0;
+            padding: clamp(6px, 1.4svh, 12px) 4px;
+            text-align: center;
+            border-radius: clamp(10px, 2svh, 18px);
+            background: rgba(255, 255, 255, 0.075);
+        }
+
+        .value {
+            display: block;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(1.8rem, 6svh, 4.1rem);
+            font-variant-numeric: tabular-nums;
+            line-height: 0.95;
+        }
+
+        .label {
+            display: block;
+            margin-top: clamp(4px, 1svh, 9px);
+            color: var(--soft-white);
+            font-size: clamp(0.48rem, 1.2svh, 0.76rem);
+            font-weight: 650;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .arrival {
+            margin-top: clamp(8px, 1.7svh, 16px);
+            text-align: center;
+            color: rgba(255, 250, 246, 0.66);
+            font-size: clamp(0.58rem, 1.2svh, 0.78rem);
+        }
+
+        .music-player {
             display: flex;
             align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
+            gap: 12px;
+            width: min(306px, 42svh, calc(100vw - 28px));
+            min-height: clamp(42px, 6.5svh, 58px);
+            padding: clamp(5px, 0.9svh, 8px) clamp(7px, 1.1svh, 10px) clamp(5px, 0.9svh, 8px) clamp(12px, 2svh, 18px);
+            border: 1px solid var(--glass-border);
+            border-radius: 999px;
+            background: rgba(13, 17, 28, 0.54);
+            box-shadow: 0 14px 38px rgba(0, 0, 0, 0.32);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
         }
-        .music-buttons button:hover {
-            background: rgba(255,255,255,0.3);
-            transform: scale(1.1);
+
+        .track {
+            min-width: min(126px, 15svh);
         }
+
+        .track-kicker {
+            display: block;
+            margin-bottom: 2px;
+            color: rgba(255, 250, 246, 0.56);
+            font-size: clamp(0.5rem, 1svh, 0.62rem);
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        #now-playing {
+            display: block;
+            max-width: 170px;
+            overflow: hidden;
+            font-size: clamp(0.7rem, 1.4svh, 0.88rem);
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .music-buttons {
+            display: flex;
+            gap: 5px;
+        }
+
+        button {
+            width: clamp(30px, 4.5svh, 40px);
+            height: clamp(30px, 4.5svh, 40px);
+            display: grid;
+            place-items: center;
+            border: 0;
+            border-radius: 50%;
+            background: transparent;
+            color: white;
+            cursor: pointer;
+            font-size: clamp(0.78rem, 1.7svh, 1rem);
+            transition: background 180ms ease, transform 180ms ease;
+        }
+
+        button:hover,
+        button:focus-visible {
+            background: rgba(255, 255, 255, 0.14);
+            outline: none;
+            transform: translateY(-1px);
+        }
+
         #play-btn {
-            width: 56px;
-            height: 56px;
-            font-size: 1.5rem;
+            background: var(--white);
+            color: #171927;
         }
+
+        #play-btn:hover,
+        #play-btn:focus-visible {
+            background: #ffffff;
+            transform: scale(1.04);
+        }
+
+        .arrived {
+            grid-column: 1 / -1;
+            padding: 14px;
+            text-align: center;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(2rem, 7vw, 4rem);
+        }
+
+        @keyframes reveal {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes rise {
+            from { opacity: 0; transform: translateY(18px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         @media (max-width: 600px) {
-            h1 { font-size: 3.9rem; }
-            .days-number { font-size: 5rem; }
-            #music-controls { bottom: 12px; right: 12px; }
+            .page {
+                padding: max(22px, env(safe-area-inset-top)) 14px max(8px, env(safe-area-inset-bottom));
+                gap: 14px;
+            }
+
+            .intro {
+                position: absolute;
+                top: max(
+                    22px,
+                    env(safe-area-inset-top),
+                    calc((100svh - 133.333vw) / 2 - 22px)
+                );
+                right: 14px;
+                left: 14px;
+            }
+
+            .countdown-card {
+                border-radius: 24px;
+            }
+
+            .time-unit {
+                border-radius: 14px;
+            }
+
+            .music-player {
+                width: min(100%, 340px, 42svh);
+                justify-content: space-between;
+            }
+
+            .track {
+                min-width: 0;
+                flex: 1;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                scroll-behavior: auto !important;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>👩🏾‍🤝‍👨🏽</h1>
-    <div id="countdown"></div>
+    <div class="photo" aria-hidden="true"></div>
 
-    <!-- Controles de música -->
-    <div id="music-controls">
-        <div id="now-playing">🎵 Toca el botón para comenzar</div>
-        <div class="music-buttons">
-            <button onclick="prevTrack()">⏮️</button>
-            <button id="play-btn" onclick="togglePlay()">▶️</button>
-            <button onclick="nextTrack()">⏭️</button>
-        </div>
-    </div>
+    <main class="page">
+        <header class="intro">
+            <p class="eyebrow">Un día más, un día menos</p>
+            <h1>Cada segundo me acerca a ti <i class="heart">♥</i></h1>
+        </header>
 
-    <audio id="player"></audio>
+        <div aria-hidden="true"></div>
+
+        <section class="bottom" aria-label="Cuenta regresiva para nuestro encuentro">
+            <div class="music-player" aria-label="Reproductor de nuestra música">
+                <div class="track">
+                    <span class="track-kicker">Nuestra canción</span>
+                    <span id="now-playing">Coincidir</span>
+                </div>
+                <div class="music-buttons">
+                    <button id="prev-btn" type="button" aria-label="Canción anterior">⏮</button>
+                    <button id="play-btn" type="button" aria-label="Reproducir">▶</button>
+                    <button id="next-btn" type="button" aria-label="Canción siguiente">⏭</button>
+                </div>
+            </div>
+
+            <div class="countdown-card">
+                <p class="countdown-title">Falta para volver a encontrarnos</p>
+                <div class="countdown" id="countdown" aria-live="polite">
+                    <div class="time-unit"><span class="value" id="days">000</span><span class="label">días</span></div>
+                    <div class="time-unit"><span class="value" id="hours">00</span><span class="label">horas</span></div>
+                    <div class="time-unit"><span class="value" id="minutes">00</span><span class="label">minutos</span></div>
+                    <div class="time-unit"><span class="value" id="seconds">00</span><span class="label">segundos</span></div>
+                </div>
+                <p class="arrival">18 de diciembre de 2026 · 12:50 p. m. · Medellín</p>
+            </div>
+        </section>
+    </main>
+
+    <audio id="player" preload="metadata"></audio>
 
     <script>
-        // =============================================
-        // SISTEMA DE VERSIÓN (Auto-actualización)
-        // =============================================
-        const APP_VERSION = 1; // ← CAMBIA ESTE NÚMERO CADA VEZ QUE ACTUALICES LA PÁGINA
+        const targetDate = new Date("2026-12-18T12:50:00-05:00").getTime();
+        const countdown = document.getElementById("countdown");
+        const daysElement = document.getElementById("days");
+        const hoursElement = document.getElementById("hours");
+        const minutesElement = document.getElementById("minutes");
+        const secondsElement = document.getElementById("seconds");
 
-        const savedVersion = localStorage.getItem('app_version');
-        if (savedVersion !== null && parseInt(savedVersion) !== APP_VERSION) {
-            localStorage.setItem('app_version', APP_VERSION);
-            location.reload(true); // Fuerza recarga desde el servidor
-        } else {
-            localStorage.setItem('app_version', APP_VERSION);
-        }
-
-        // === Cuenta regresiva ===
-        const targetDate = new Date("2026-12-18T00:00:00").getTime();
+        let countdownTimer;
 
         function updateCountdown() {
-            const now = new Date().getTime();
-            const distance = targetDate - now;
+            const distance = targetDate - Date.now();
 
-            if (distance < 0) {
-                document.getElementById("countdown").innerHTML = 
-                    `<span style="font-size: 2.6rem;">¡Llegó el día! ❤️</span>`;
+            if (distance <= 0) {
+                clearInterval(countdownTimer);
+                countdown.innerHTML = '<p class="arrived">Al fin juntos ❤️</p>';
                 return;
             }
 
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-            const daysLabel = days === 1 ? "día" : "días";
+            const day = 1000 * 60 * 60 * 24;
+            const hour = 1000 * 60 * 60;
+            const minute = 1000 * 60;
 
-            document.getElementById("countdown").innerHTML = `
-                <span class="days-number">${days}</span>
-                <span class="days-label">${daysLabel}</span>
-                <span class="time">${hours}h ${minutes}m ${seconds}s</span>
-            `;
+            const days = Math.floor(distance / day);
+            const hours = Math.floor((distance % day) / hour);
+            const minutes = Math.floor((distance % hour) / minute);
+            const seconds = Math.floor((distance % minute) / 1000);
+
+            daysElement.textContent = String(days).padStart(3, "0");
+            hoursElement.textContent = String(hours).padStart(2, "0");
+            minutesElement.textContent = String(minutes).padStart(2, "0");
+            secondsElement.textContent = String(seconds).padStart(2, "0");
         }
 
-        setInterval(updateCountdown, 1000);
         updateCountdown();
+        countdownTimer = setInterval(updateCountdown, 1000);
 
-        // === PLAYLIST ===
         const playlist = [
-            { src: "music/Coincidir.mp3", title: "Coincidir" },
-            { src: "music/Creo_en_ti.mp3", title: "Creo en ti" }
+            {
+                src: "https://jose-a-gonzalez.github.io/un_dia_mas_un_dia_menos/music/Coincidir.mp3",
+                title: "Coincidir"
+            },
+            {
+                src: "https://jose-a-gonzalez.github.io/un_dia_mas_un_dia_menos/music/Creo_en_ti.mp3",
+                title: "Creo en ti"
+            }
         ];
 
         let currentTrack = 0;
-        const player = document.getElementById('player');
-        const playBtn = document.getElementById('play-btn');
-        const nowPlaying = document.getElementById('now-playing');
+        const player = document.getElementById("player");
+        const playBtn = document.getElementById("play-btn");
+        const nowPlaying = document.getElementById("now-playing");
+
+        function syncPlayerState() {
+            const isPlaying = !player.paused && !player.ended;
+            playBtn.textContent = isPlaying ? "❚❚" : "▶";
+            playBtn.setAttribute("aria-label", isPlaying ? "Pausar" : "Reproducir");
+        }
 
         function loadTrack(index) {
             currentTrack = index;
             player.src = playlist[index].src;
-            nowPlaying.textContent = `🎵 ${playlist[index].title}`;
+            nowPlaying.textContent = playlist[index].title;
         }
 
-        function togglePlay() {
-            if (player.paused || player.ended) {
-                player.play().then(() => {
-                    playBtn.innerHTML = '⏸️';
-                }).catch(() => {
-                    alert("No se pudo reproducir la música.\nRevisa que el archivo exista en la carpeta music/");
-                });
-            } else {
-                player.pause();
-                playBtn.innerHTML = '▶️';
+        async function playCurrentTrack() {
+            try {
+                await player.play();
+            } catch (error) {
+                syncPlayerState();
+                nowPlaying.textContent = "Toca reproducir para escuchar";
             }
         }
 
-        function nextTrack() {
-            currentTrack = (currentTrack + 1) % playlist.length;
+        function changeTrack(direction) {
+            currentTrack = (currentTrack + direction + playlist.length) % playlist.length;
             loadTrack(currentTrack);
-            player.play().then(() => {
-                playBtn.innerHTML = '⏸️';
-            }).catch(() => {});
+            playCurrentTrack();
         }
 
-        function prevTrack() {
-            currentTrack = (currentTrack - 1 + playlist.length) % playlist.length;
-            loadTrack(currentTrack);
-            player.play().then(() => {
-                playBtn.innerHTML = '⏸️';
-            }).catch(() => {});
-        }
+        playBtn.addEventListener("click", () => {
+            if (player.paused || player.ended) {
+                playCurrentTrack();
+            } else {
+                player.pause();
+            }
+        });
 
-        player.addEventListener('ended', () => {
-            nextTrack();
+        document.getElementById("prev-btn").addEventListener("click", () => changeTrack(-1));
+        document.getElementById("next-btn").addEventListener("click", () => changeTrack(1));
+        player.addEventListener("play", syncPlayerState);
+        player.addEventListener("pause", syncPlayerState);
+        player.addEventListener("ended", () => changeTrack(1));
+        player.addEventListener("error", () => {
+            syncPlayerState();
+            nowPlaying.textContent = "No se pudo cargar la canción";
         });
 
         loadTrack(0);
-
-        // Intentar autoplay
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                player.play().then(() => {
-                    playBtn.innerHTML = '⏸️';
-                }).catch(() => {});
-            }, 500);
-        });
+        syncPlayerState();
     </script>
 </body>
 </html>
- 
