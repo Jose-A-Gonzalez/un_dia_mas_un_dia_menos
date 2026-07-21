@@ -1,5 +1,5 @@
 // Cambia este número en cada publicación para renovar los archivos guardados.
-const APP_VERSION = "romantic-countdown-v4";
+const APP_VERSION = "romantic-countdown-v5";
 const SHELL_CACHE = `${APP_VERSION}-shell`;
 const PHOTO_CACHE = `${APP_VERSION}-photos`;
 // Cambia esta versión únicamente cuando cambien los archivos de música.
