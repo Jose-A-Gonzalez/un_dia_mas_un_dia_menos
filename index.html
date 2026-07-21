@@ -313,23 +313,28 @@
 
         .app-notice {
             position: fixed;
-            top: max(18px, env(safe-area-inset-top));
-            left: 50%;
+            top: max(14px, env(safe-area-inset-top));
+            right: max(14px, env(safe-area-inset-right));
             z-index: 20;
-            width: min(430px, calc(100vw - 28px));
-            display: grid;
-            grid-template-columns: auto 1fr auto auto;
+            width: auto;
+            height: 42px;
+            display: flex;
             align-items: center;
-            gap: 10px;
-            padding: 10px 10px 10px 12px;
+            gap: 8px;
+            padding: 0 14px 0 10px;
             border: 1px solid rgba(255, 255, 255, 0.22);
-            border-radius: 20px;
+            border-radius: 999px;
             background: rgba(10, 13, 22, 0.88);
-            box-shadow: 0 18px 52px rgba(0, 0, 0, 0.45);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.38);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            transform: translateX(-50%);
-            animation: notice-in 420ms ease-out both;
+            color: #fffaf6;
+            cursor: pointer;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            animation: install-chip-in 420ms ease-out both;
         }
 
         .app-notice[hidden] {
@@ -363,67 +368,21 @@
         }
 
         .notice-heart {
-            width: 38px;
-            height: 38px;
+            width: 25px;
+            height: 25px;
             display: grid;
             place-items: center;
-            border: 1px solid rgba(114, 217, 154, 0.28);
-            border-radius: 13px;
-            background: rgba(114, 217, 154, 0.12);
             color: var(--accent);
         }
 
         .notice-heart svg {
-            width: 19px;
+            width: 16px;
         }
 
-        .notice-copy {
-            min-width: 0;
-        }
-
-        .notice-copy strong,
-        .notice-copy span {
-            display: block;
-        }
-
-        .notice-copy strong {
-            margin-bottom: 2px;
-            font-family: Georgia, "Times New Roman", serif;
-            font-size: 0.96rem;
-            font-weight: 400;
-        }
-
-        .notice-copy span {
-            overflow: hidden;
-            color: rgba(255, 250, 246, 0.62);
-            font-size: 0.7rem;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        .notice-action,
-        .notice-dismiss {
-            width: auto;
-            height: 34px;
-            border-radius: 999px;
-            font-size: 0.72rem;
-            font-weight: 700;
-        }
-
-        .notice-action {
-            padding: 0 14px;
-            background: var(--accent);
-            color: #07110c;
-        }
-
-        .notice-action:hover,
-        .notice-action:focus-visible {
-            background: #8ee9af;
-        }
-
-        .notice-dismiss {
-            width: 34px;
-            color: rgba(255, 250, 246, 0.72);
+        .app-notice:hover,
+        .app-notice:focus-visible {
+            border-color: rgba(114, 217, 154, 0.5);
+            background: rgba(15, 25, 27, 0.94);
         }
 
         .journey-handle {
@@ -638,9 +597,9 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes notice-in {
-            from { opacity: 0; transform: translate(-50%, -12px); }
-            to { opacity: 1; transform: translate(-50%, 0); }
+        @keyframes install-chip-in {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @media (max-width: 600px) {
@@ -710,21 +669,9 @@
             }
 
             .app-notice {
-                top: auto;
-                bottom: max(12px, env(safe-area-inset-bottom));
-                grid-template-columns: auto 1fr auto;
-                border-radius: 18px;
-                animation-name: notice-in-mobile;
-            }
-
-            .notice-dismiss {
-                position: absolute;
-                top: -9px;
-                right: -6px;
-                width: 28px;
-                height: 28px;
-                border: 1px solid var(--glass-border);
-                background: rgba(10, 13, 22, 0.96);
+                top: max(12px, env(safe-area-inset-top));
+                right: max(12px, env(safe-area-inset-right));
+                bottom: auto;
             }
 
             .update-heart-notice {
@@ -782,11 +729,6 @@
             .journey-phrase {
                 font-size: clamp(1.18rem, 4.8vw, 1.45rem);
             }
-        }
-
-        @keyframes notice-in-mobile {
-            from { opacity: 0; transform: translate(-50%, 12px); }
-            to { opacity: 1; transform: translate(-50%, 0); }
         }
 
         @keyframes heart-whisper {
@@ -920,17 +862,12 @@
 
     <audio id="player" preload="metadata" autoplay></audio>
 
-    <aside class="app-notice" id="install-notice" aria-live="polite" hidden>
+    <button class="app-notice" id="install-app-btn" type="button" aria-label="Instalar esta aplicación" hidden>
         <span class="notice-heart" aria-hidden="true">
             <svg viewBox="0 0 24 24"><path d="M12 21s-7.2-4.35-9.46-8.42C.47 8.87 2.27 4.5 6.44 4.08 8.7 3.85 10.6 5 12 6.78c1.4-1.78 3.3-2.93 5.56-2.7 4.17.42 5.97 4.79 3.9 8.5C19.2 16.65 12 21 12 21Z"/></svg>
         </span>
-        <span class="notice-copy">
-            <strong>Guarda nuestro rincón</strong>
-            <span>Ábrelo como una aplicación</span>
-        </span>
-        <button class="notice-action" id="install-app-btn" type="button">Instalar</button>
-        <button class="notice-dismiss" id="dismiss-install-btn" type="button" aria-label="Ahora no">×</button>
-    </aside>
+        <span>Instalar app</span>
+    </button>
 
     <aside class="update-heart-notice" id="update-notice" role="status" aria-live="polite" hidden>
         <span class="release-heart" aria-label="Hay una nueva sorpresa">
@@ -1100,7 +1037,7 @@
         syncPlayerState();
         tryAutoplay();
 
-        const installNotice = document.getElementById("install-notice");
+        const installNotice = document.getElementById("install-app-btn");
         const updateNotice = document.getElementById("update-notice");
         const installAppBtn = document.getElementById("install-app-btn");
         let deferredInstallPrompt = null;
@@ -1119,18 +1056,13 @@
                 return;
             }
 
-            const dismissedAt = Number(localStorage.getItem("install-notice-dismissed-at"));
-            const sevenDays = 7 * 24 * 60 * 60 * 1000;
-
-            if (!dismissedAt || Date.now() - dismissedAt > sevenDays) {
-                installNotice.hidden = false;
-            }
+            installNotice.hidden = false;
         }
 
         window.addEventListener("beforeinstallprompt", (event) => {
             event.preventDefault();
             deferredInstallPrompt = event;
-            window.setTimeout(showInstallNotice, 2600);
+            window.setTimeout(showInstallNotice, 1200);
         });
 
         installAppBtn.addEventListener("click", async () => {
@@ -1138,24 +1070,23 @@
                 return;
             }
 
-            deferredInstallPrompt.prompt();
-            const choice = await deferredInstallPrompt.userChoice;
+            const promptEvent = deferredInstallPrompt;
             deferredInstallPrompt = null;
+            await promptEvent.prompt();
+            await promptEvent.userChoice;
             installNotice.hidden = true;
-
-            if (choice.outcome !== "accepted") {
-                localStorage.setItem("install-notice-dismissed-at", String(Date.now()));
-            }
-        });
-
-        document.getElementById("dismiss-install-btn").addEventListener("click", () => {
-            installNotice.hidden = true;
-            localStorage.setItem("install-notice-dismissed-at", String(Date.now()));
         });
 
         window.addEventListener("appinstalled", () => {
             deferredInstallPrompt = null;
             installNotice.hidden = true;
+        });
+
+        window.matchMedia("(display-mode: standalone)").addEventListener?.("change", (event) => {
+            if (event.matches) {
+                deferredInstallPrompt = null;
+                installNotice.hidden = true;
+            }
         });
 
         function showImportantReleaseNotice() {
@@ -1171,7 +1102,10 @@
             installNotice.hidden = true;
             updateNotice.hidden = false;
             localStorage.setItem("important-release-seen", importantRelease.id);
-            window.setTimeout(() => updateNotice.hidden = true, 6000);
+            window.setTimeout(() => {
+                updateNotice.hidden = true;
+                showInstallNotice();
+            }, 6000);
         }
 
         showImportantReleaseNotice();
