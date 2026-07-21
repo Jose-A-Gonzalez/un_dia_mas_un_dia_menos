@@ -42,9 +42,15 @@
             min-height: 100%;
         }
 
+        html {
+            scroll-behavior: smooth;
+            scroll-snap-type: y mandatory;
+        }
+
         body {
             min-height: 100svh;
-            overflow: hidden;
+            overflow-x: hidden;
+            overflow-y: auto;
             background: #0a0d16;
             color: var(--white);
             font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -92,6 +98,8 @@
             display: grid;
             grid-template-rows: auto 1fr auto;
             gap: 24px;
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
         }
 
         .intro {
@@ -418,6 +426,208 @@
             color: rgba(255, 250, 246, 0.72);
         }
 
+        .journey-handle {
+            position: absolute;
+            bottom: max(0px, env(safe-area-inset-bottom));
+            left: 50%;
+            z-index: 6;
+            display: grid;
+            justify-items: center;
+            gap: 1px;
+            padding: 0 6px;
+            border: 0;
+            background: transparent;
+            color: rgba(255, 250, 246, 0.84);
+            font-size: 0.58rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            line-height: 1.05;
+            text-decoration: none;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+            text-transform: uppercase;
+            transform: translateX(-50%);
+        }
+
+        .journey-handle span {
+            color: var(--accent);
+            font-size: 0.82rem;
+            line-height: 0.65;
+        }
+
+        .journey-page {
+            position: relative;
+            min-height: 100svh;
+            padding: max(28px, env(safe-area-inset-top)) 18px max(18px, env(safe-area-inset-bottom));
+            display: grid;
+            place-items: center;
+            overflow: hidden;
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
+            isolation: isolate;
+        }
+
+        .journey-page::before,
+        .journey-page::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+
+        .journey-page::before {
+            z-index: -2;
+            background:
+                radial-gradient(circle at 16% 22%, rgba(88, 157, 115, 0.44), transparent 35%),
+                radial-gradient(circle at 86% 18%, rgba(236, 177, 51, 0.34), transparent 38%),
+                linear-gradient(155deg, #0a1717 0%, #0a1019 46%, #18140c 100%);
+        }
+
+        .journey-page::after {
+            z-index: -1;
+            opacity: 0.2;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 34px 34px;
+            mask-image: linear-gradient(180deg, transparent, black 20%, black 78%, transparent);
+        }
+
+        .journey-content {
+            width: min(100%, 620px);
+            display: grid;
+            justify-items: center;
+            gap: clamp(16px, 3svh, 28px);
+            text-align: center;
+        }
+
+        .journey-heading .eyebrow {
+            color: rgba(114, 217, 154, 0.8);
+        }
+
+        .journey-heading h2 {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(2rem, 7vw, 3.2rem);
+            font-weight: 400;
+            letter-spacing: -0.025em;
+        }
+
+        .journey-subtitle {
+            margin-top: 8px;
+            color: rgba(255, 250, 246, 0.62);
+            font-size: clamp(0.78rem, 2.8vw, 0.96rem);
+        }
+
+        .journey-card {
+            width: 100%;
+            padding: 0;
+        }
+
+        .journey-map {
+            width: 100%;
+            height: auto;
+            overflow: visible;
+        }
+
+        .route-base,
+        .route-progress {
+            fill: none;
+            stroke-linecap: round;
+        }
+
+        .route-base {
+            stroke: rgba(255, 250, 246, 0.2);
+            stroke-width: 4;
+            stroke-dasharray: 3 12;
+        }
+
+        .route-progress {
+            stroke: var(--accent);
+            stroke-width: 4;
+            filter: drop-shadow(0 0 8px rgba(114, 217, 154, 0.7));
+        }
+
+        .journey-place {
+            fill: rgba(255, 250, 246, 0.88);
+            font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+        }
+
+        .journey-code {
+            fill: rgba(255, 250, 246, 0.48);
+            font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+            font-size: 9px;
+            letter-spacing: 0.16em;
+        }
+
+        .journey-dot {
+            fill: #fffaf6;
+            stroke: rgba(114, 217, 154, 0.4);
+            stroke-width: 7;
+        }
+
+        #journey-plane {
+            font-family: "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
+            font-size: 30px;
+            text-anchor: middle;
+            dominant-baseline: central;
+            filter: drop-shadow(0 5px 7px rgba(0, 0, 0, 0.55));
+        }
+
+        .journey-stats {
+            margin-top: 8px;
+            display: grid;
+            grid-template-columns: 1fr 1px 1fr;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .journey-stat strong,
+        .journey-stat span {
+            display: block;
+        }
+
+        .journey-stat strong {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(1.8rem, 8vw, 2.5rem);
+            font-weight: 400;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .journey-stat span {
+            margin-top: 3px;
+            color: rgba(255, 250, 246, 0.54);
+            font-size: 0.62rem;
+            font-weight: 700;
+            letter-spacing: 0.13em;
+            text-transform: uppercase;
+        }
+
+        .journey-divider {
+            width: 1px;
+            height: 38px;
+            background: rgba(255, 255, 255, 0.16);
+        }
+
+        .journey-phrase {
+            max-width: 34ch;
+            color: rgba(255, 250, 246, 0.72);
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(1.05rem, 4vw, 1.35rem);
+            line-height: 1.45;
+        }
+
+        .back-to-countdown {
+            color: #fffaf6;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-decoration: none;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.72);
+            text-transform: uppercase;
+        }
+
         @keyframes reveal {
             from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -525,6 +735,53 @@
             .release-heart {
                 width: 34px;
             }
+
+            .journey-page {
+                padding: max(30px, env(safe-area-inset-top)) 12px max(24px, env(safe-area-inset-bottom));
+                display: flex;
+                align-items: stretch;
+                justify-content: center;
+            }
+
+            .journey-content {
+                flex: 1;
+                align-content: space-between;
+                gap: 12px;
+            }
+
+            .journey-card {
+                width: 100%;
+                min-height: clamp(300px, 46svh, 390px);
+                padding: 0 6px;
+                display: grid;
+                grid-template-rows: 1fr auto;
+                align-items: center;
+            }
+
+            .journey-map {
+                width: 100%;
+                align-self: center;
+            }
+
+            .journey-place {
+                font-size: 15px;
+            }
+
+            .journey-code {
+                font-size: 10px;
+            }
+
+            .journey-stat strong {
+                font-size: clamp(2.15rem, 10vw, 2.8rem);
+            }
+
+            .journey-stat span {
+                font-size: 0.66rem;
+            }
+
+            .journey-phrase {
+                font-size: clamp(1.18rem, 4.8vw, 1.45rem);
+            }
         }
 
         @keyframes notice-in-mobile {
@@ -579,7 +836,7 @@
 <body>
     <div class="photo" aria-hidden="true"></div>
 
-    <main class="page">
+    <main class="page" id="countdown-screen">
         <header class="intro">
             <p class="eyebrow">Un día más, un día menos</p>
             <h1>Cada segundo me acerca a ti <i class="heart">♥</i></h1>
@@ -612,7 +869,54 @@
                 <p class="arrival">18 de diciembre de 2026 · 12:50 p. m. · Medellín</p>
             </div>
         </section>
+
+        <a class="journey-handle" href="#our-journey" aria-label="Desliza para ver nuestro viaje">
+            Nuestro viaje
+            <span aria-hidden="true">⌄</span>
+        </a>
     </main>
+
+    <section class="journey-page" id="our-journey" aria-labelledby="journey-title">
+        <div class="journey-content">
+            <header class="journey-heading">
+                <p class="eyebrow">Nuestro viaje</p>
+                <h2 id="journey-title">De Puerto Rico a tus brazos</h2>
+                <p class="journey-subtitle">El camino hacia nuestro reencuentro ya comenzó.</p>
+            </header>
+
+            <div class="journey-card">
+                <svg class="journey-map" viewBox="0 0 400 178" role="img" aria-label="Progreso del viaje de San Juan a Medellín">
+                    <path class="route-base" d="M24 106 C104 20 296 20 376 106"></path>
+                    <path class="route-progress" id="journey-progress-path" d="M24 106 C104 20 296 20 376 106"></path>
+
+                    <circle class="journey-dot" cx="24" cy="106" r="6"></circle>
+                    <circle class="journey-dot" cx="376" cy="106" r="6"></circle>
+
+                    <text id="journey-plane" x="0" y="0" aria-hidden="true">✈️</text>
+
+                    <text class="journey-place" x="12" y="140" text-anchor="start">Puerto Rico</text>
+                    <text class="journey-code" x="12" y="158" text-anchor="start">SJU</text>
+                    <text class="journey-place" x="388" y="140" text-anchor="end">Colombia</text>
+                    <text class="journey-code" x="388" y="158" text-anchor="end">MDE</text>
+                </svg>
+
+                <div class="journey-stats" aria-live="polite">
+                    <div class="journey-stat">
+                        <strong id="journey-percent">0%</strong>
+                        <span>del camino</span>
+                    </div>
+                    <div class="journey-divider" aria-hidden="true"></div>
+                    <div class="journey-stat">
+                        <strong id="journey-days">151</strong>
+                        <span>días por volar</span>
+                    </div>
+                </div>
+            </div>
+
+            <p class="journey-phrase">Cada día cruzo un poquito más de distancia hacia ti.</p>
+            <a class="back-to-countdown" href="#countdown-screen">⌃ Volver a nuestra cuenta</a>
+        </div>
+    </section>
 
     <audio id="player" preload="metadata" autoplay></audio>
 
@@ -636,15 +940,46 @@
 
     <script>
         const targetDate = new Date("2026-12-18T12:50:00-05:00").getTime();
+        const journeyStartDate = new Date("2026-07-20T00:00:00-04:00").getTime();
         const countdown = document.getElementById("countdown");
         const daysElement = document.getElementById("days");
         const hoursElement = document.getElementById("hours");
         const minutesElement = document.getElementById("minutes");
         const secondsElement = document.getElementById("seconds");
+        const journeyPath = document.querySelector(".route-base");
+        const journeyProgressPath = document.getElementById("journey-progress-path");
+        const journeyPlane = document.getElementById("journey-plane");
+        const journeyPercent = document.getElementById("journey-percent");
+        const journeyDays = document.getElementById("journey-days");
 
         let countdownTimer;
 
+        function updateJourney() {
+            const now = Date.now();
+            const totalJourney = targetDate - journeyStartDate;
+            const elapsedJourney = now - journeyStartDate;
+            const progress = Math.min(1, Math.max(0, elapsedJourney / totalJourney));
+            const routeLength = journeyPath.getTotalLength();
+            const travelledLength = routeLength * progress;
+            const planePoint = journeyPath.getPointAtLength(travelledLength);
+            const nextPoint = journeyPath.getPointAtLength(Math.min(routeLength, travelledLength + 1));
+            const planeAngle = Math.atan2(nextPoint.y - planePoint.y, nextPoint.x - planePoint.x) * 180 / Math.PI;
+            const progressValue = progress < 0.1
+                ? (progress * 100).toFixed(1)
+                : String(Math.round(progress * 100));
+            const remainingDays = Math.max(0, Math.floor((targetDate - now) / (1000 * 60 * 60 * 24)));
+
+            journeyProgressPath.style.strokeDasharray = `${routeLength} ${routeLength}`;
+            journeyProgressPath.style.strokeDashoffset = String(routeLength - travelledLength);
+            // The airplane emoji is drawn pointing about 45° upward by default.
+            // Compensate for that built-in angle so its nose follows the route tangent.
+            journeyPlane.setAttribute("transform", `translate(${planePoint.x} ${planePoint.y}) rotate(${planeAngle + 45})`);
+            journeyPercent.textContent = `${progressValue}%`;
+            journeyDays.textContent = String(remainingDays);
+        }
+
         function updateCountdown() {
+            updateJourney();
             const distance = targetDate - Date.now();
 
             if (distance <= 0) {
