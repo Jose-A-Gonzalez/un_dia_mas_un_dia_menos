@@ -5,7 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
     <meta name="theme-color" content="#0a0d16">
-    <title>Un día más, un día menos ❤️</title>
+    <meta name="description" content="Cada segundo me acerca a ti.">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Un día menos">
+    <link rel="manifest" href="./manifest.webmanifest">
+    <link rel="icon" href="./icons/app-icon-192.png" sizes="192x192">
+    <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+    <title>Un día más, un día menos 💚</title>
+    <script>
+        if (
+            window.matchMedia("(display-mode: standalone)").matches ||
+            window.navigator.standalone === true
+        ) {
+            document.documentElement.classList.add("standalone-layout");
+        }
+    </script>
     <style>
         :root {
             --white: #fffaf6;
@@ -39,7 +55,7 @@
             position: fixed;
             inset: 0;
             z-index: -3;
-            background-image: url("https://i.postimg.cc/fyLPY2xj/Whats-App-Image-2026-06-24-at-10-42-59-PM.jpg");
+            background-image: url("./assets/photo.jpg");
             background-position: center;
             background-size: cover;
             filter: saturate(0.82) brightness(0.58);
@@ -60,7 +76,7 @@
             position: fixed;
             inset: 0;
             z-index: -2;
-            background-image: url("https://i.postimg.cc/fyLPY2xj/Whats-App-Image-2026-06-24-at-10-42-59-PM.jpg");
+            background-image: url("./assets/photo.jpg");
             background-position: center;
             background-repeat: no-repeat;
             background-size: contain;
@@ -287,6 +303,121 @@
             font-size: clamp(2rem, 7vw, 4rem);
         }
 
+        .app-notice {
+            position: fixed;
+            top: max(18px, env(safe-area-inset-top));
+            left: 50%;
+            z-index: 20;
+            width: min(430px, calc(100vw - 28px));
+            display: grid;
+            grid-template-columns: auto 1fr auto auto;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 10px 10px 12px;
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            border-radius: 20px;
+            background: rgba(10, 13, 22, 0.88);
+            box-shadow: 0 18px 52px rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            transform: translateX(-50%);
+            animation: notice-in 420ms ease-out both;
+        }
+
+        .app-notice[hidden] {
+            display: none;
+        }
+
+        .update-heart-notice {
+            position: fixed;
+            top: max(20px, env(safe-area-inset-top));
+            right: max(20px, env(safe-area-inset-right));
+            z-index: 21;
+        }
+
+        .update-heart-notice[hidden] {
+            display: none;
+        }
+
+        .release-heart {
+            display: block;
+            width: 38px;
+            color: var(--accent);
+            filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.72)) drop-shadow(0 0 8px rgba(114, 217, 154, 0.24));
+            animation: heart-whisper 2.4s ease-in-out infinite;
+        }
+
+        .release-heart svg,
+        .notice-heart svg {
+            display: block;
+            width: 100%;
+            fill: currentColor;
+        }
+
+        .notice-heart {
+            width: 38px;
+            height: 38px;
+            display: grid;
+            place-items: center;
+            border: 1px solid rgba(114, 217, 154, 0.28);
+            border-radius: 13px;
+            background: rgba(114, 217, 154, 0.12);
+            color: var(--accent);
+        }
+
+        .notice-heart svg {
+            width: 19px;
+        }
+
+        .notice-copy {
+            min-width: 0;
+        }
+
+        .notice-copy strong,
+        .notice-copy span {
+            display: block;
+        }
+
+        .notice-copy strong {
+            margin-bottom: 2px;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 0.96rem;
+            font-weight: 400;
+        }
+
+        .notice-copy span {
+            overflow: hidden;
+            color: rgba(255, 250, 246, 0.62);
+            font-size: 0.7rem;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .notice-action,
+        .notice-dismiss {
+            width: auto;
+            height: 34px;
+            border-radius: 999px;
+            font-size: 0.72rem;
+            font-weight: 700;
+        }
+
+        .notice-action {
+            padding: 0 14px;
+            background: var(--accent);
+            color: #07110c;
+        }
+
+        .notice-action:hover,
+        .notice-action:focus-visible {
+            background: #8ee9af;
+        }
+
+        .notice-dismiss {
+            width: 34px;
+            color: rgba(255, 250, 246, 0.72);
+        }
+
         @keyframes reveal {
             from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -295,6 +426,11 @@
         @keyframes rise {
             from { opacity: 0; transform: translateY(18px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes notice-in {
+            from { opacity: 0; transform: translate(-50%, -12px); }
+            to { opacity: 1; transform: translate(-50%, 0); }
         }
 
         @media (max-width: 600px) {
@@ -315,11 +451,36 @@
             }
 
             .countdown-card {
+                padding: 14px;
                 border-radius: 24px;
             }
 
+            .countdown-title {
+                margin-bottom: 10px;
+                font-size: 0.82rem;
+            }
+
+            .countdown {
+                gap: 8px;
+            }
+
             .time-unit {
+                padding: 8px 3px;
                 border-radius: 14px;
+            }
+
+            .value {
+                font-size: clamp(2.05rem, 9.5vw, 2.35rem);
+            }
+
+            .label {
+                margin-top: 6px;
+                font-size: 0.62rem;
+            }
+
+            .arrival {
+                margin-top: 12px;
+                font-size: 0.68rem;
             }
 
             .music-player {
@@ -336,6 +497,73 @@
             .track {
                 min-width: 0;
                 flex: 1;
+            }
+
+            .app-notice {
+                top: auto;
+                bottom: max(12px, env(safe-area-inset-bottom));
+                grid-template-columns: auto 1fr auto;
+                border-radius: 18px;
+                animation-name: notice-in-mobile;
+            }
+
+            .notice-dismiss {
+                position: absolute;
+                top: -9px;
+                right: -6px;
+                width: 28px;
+                height: 28px;
+                border: 1px solid var(--glass-border);
+                background: rgba(10, 13, 22, 0.96);
+            }
+
+            .update-heart-notice {
+                top: max(14px, env(safe-area-inset-top));
+                right: max(14px, env(safe-area-inset-right));
+            }
+
+            .release-heart {
+                width: 34px;
+            }
+        }
+
+        @keyframes notice-in-mobile {
+            from { opacity: 0; transform: translate(-50%, 12px); }
+            to { opacity: 1; transform: translate(-50%, 0); }
+        }
+
+        @keyframes heart-whisper {
+            0%, 100% { opacity: 0.72; transform: scale(1); }
+            45% { opacity: 1; transform: scale(1.14); }
+        }
+
+        @media (max-width: 600px) and (min-height: 680px) {
+            .standalone-layout body::before {
+                filter: blur(16px) saturate(0.9) brightness(0.72);
+                transform: scale(1.08);
+            }
+
+            .standalone-layout body::after {
+                background:
+                    linear-gradient(180deg, rgba(3, 6, 13, 0.58) 0%, rgba(3, 6, 13, 0.02) 36%, rgba(3, 6, 13, 0.12) 58%, rgba(3, 6, 13, 0.5) 100%),
+                    linear-gradient(90deg, rgba(3, 6, 13, 0.34), transparent 32%, transparent 68%, rgba(3, 6, 13, 0.34));
+            }
+
+            .standalone-layout .photo {
+                background-position: center clamp(46px, 6.5svh, 54px);
+            }
+
+            .standalone-layout .intro {
+                top: max(28px, env(safe-area-inset-top));
+            }
+
+            .standalone-layout .eyebrow {
+                font-size: 0.9rem;
+                letter-spacing: 0.25em;
+            }
+
+            .standalone-layout .bottom {
+                gap: 8px;
             }
         }
 
@@ -388,6 +616,24 @@
 
     <audio id="player" preload="metadata" autoplay></audio>
 
+    <aside class="app-notice" id="install-notice" aria-live="polite" hidden>
+        <span class="notice-heart" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 21s-7.2-4.35-9.46-8.42C.47 8.87 2.27 4.5 6.44 4.08 8.7 3.85 10.6 5 12 6.78c1.4-1.78 3.3-2.93 5.56-2.7 4.17.42 5.97 4.79 3.9 8.5C19.2 16.65 12 21 12 21Z"/></svg>
+        </span>
+        <span class="notice-copy">
+            <strong>Guarda nuestro rincón</strong>
+            <span>Ábrelo como una aplicación</span>
+        </span>
+        <button class="notice-action" id="install-app-btn" type="button">Instalar</button>
+        <button class="notice-dismiss" id="dismiss-install-btn" type="button" aria-label="Ahora no">×</button>
+    </aside>
+
+    <aside class="update-heart-notice" id="update-notice" role="status" aria-live="polite" hidden>
+        <span class="release-heart" aria-label="Hay una nueva sorpresa">
+            <svg viewBox="0 0 24 24"><path d="M12 21s-7.2-4.35-9.46-8.42C.47 8.87 2.27 4.5 6.44 4.08 8.7 3.85 10.6 5 12 6.78c1.4-1.78 3.3-2.93 5.56-2.7 4.17.42 5.97 4.79 3.9 8.5C19.2 16.65 12 21 12 21Z"/></svg>
+        </span>
+    </aside>
+
     <script>
         const targetDate = new Date("2026-12-18T12:50:00-05:00").getTime();
         const countdown = document.getElementById("countdown");
@@ -427,11 +673,11 @@
 
         const playlist = [
             {
-                src: "https://jose-a-gonzalez.github.io/un_dia_mas_un_dia_menos/music/Coincidir.mp3",
+                src: "./music/Coincidir.mp3",
                 title: "Coincidir"
             },
             {
-                src: "https://jose-a-gonzalez.github.io/un_dia_mas_un_dia_menos/music/Creo_en_ti.mp3",
+                src: "./music/Creo_en_ti.mp3",
                 title: "Creo en ti"
             }
         ];
@@ -518,6 +764,109 @@
         loadTrack(0);
         syncPlayerState();
         tryAutoplay();
+
+        const installNotice = document.getElementById("install-notice");
+        const updateNotice = document.getElementById("update-notice");
+        const installAppBtn = document.getElementById("install-app-btn");
+        let deferredInstallPrompt = null;
+        // Para una sorpresa importante, cambia el identificador y activa "show".
+        const importantRelease = {
+            id: "pwa-inicial-v1",
+            show: false
+        };
+
+        function isStandalone() {
+            return window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
+        }
+
+        function showInstallNotice() {
+            if (!deferredInstallPrompt || isStandalone() || !updateNotice.hidden) {
+                return;
+            }
+
+            const dismissedAt = Number(localStorage.getItem("install-notice-dismissed-at"));
+            const sevenDays = 7 * 24 * 60 * 60 * 1000;
+
+            if (!dismissedAt || Date.now() - dismissedAt > sevenDays) {
+                installNotice.hidden = false;
+            }
+        }
+
+        window.addEventListener("beforeinstallprompt", (event) => {
+            event.preventDefault();
+            deferredInstallPrompt = event;
+            window.setTimeout(showInstallNotice, 2600);
+        });
+
+        installAppBtn.addEventListener("click", async () => {
+            if (!deferredInstallPrompt) {
+                return;
+            }
+
+            deferredInstallPrompt.prompt();
+            const choice = await deferredInstallPrompt.userChoice;
+            deferredInstallPrompt = null;
+            installNotice.hidden = true;
+
+            if (choice.outcome !== "accepted") {
+                localStorage.setItem("install-notice-dismissed-at", String(Date.now()));
+            }
+        });
+
+        document.getElementById("dismiss-install-btn").addEventListener("click", () => {
+            installNotice.hidden = true;
+            localStorage.setItem("install-notice-dismissed-at", String(Date.now()));
+        });
+
+        window.addEventListener("appinstalled", () => {
+            deferredInstallPrompt = null;
+            installNotice.hidden = true;
+        });
+
+        function showImportantReleaseNotice() {
+            if (!importantRelease.show) {
+                return;
+            }
+
+            const seenRelease = localStorage.getItem("important-release-seen");
+            if (seenRelease === importantRelease.id) {
+                return;
+            }
+
+            installNotice.hidden = true;
+            updateNotice.hidden = false;
+            localStorage.setItem("important-release-seen", importantRelease.id);
+            window.setTimeout(() => updateNotice.hidden = true, 6000);
+        }
+
+        showImportantReleaseNotice();
+
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", async () => {
+                try {
+                    const registration = await navigator.serviceWorker.register("./service-worker.js", {
+                        updateViaCache: "none"
+                    });
+
+                    const readyRegistration = await navigator.serviceWorker.ready;
+                    readyRegistration.active?.postMessage({ type: "CACHE_MUSIC" });
+
+                    document.addEventListener("visibilitychange", () => {
+                        if (document.visibilityState === "visible") {
+                            registration.update();
+                        }
+                    });
+                } catch (error) {
+                    console.warn("No se pudo activar el modo aplicación.", error);
+                }
+            });
+
+            navigator.serviceWorker.addEventListener("controllerchange", async () => {
+                const registration = await navigator.serviceWorker.ready;
+                registration.active?.postMessage({ type: "CACHE_MUSIC" });
+            });
+        }
+
     </script>
 </body>
 </html>
