@@ -215,6 +215,7 @@
         .music-player.is-compact {
             width: clamp(126px, 18svh, 150px);
             padding: clamp(5px, 0.9svh, 8px);
+            justify-self: end;
             justify-content: center;
             gap: 0;
         }
@@ -834,10 +835,6 @@
                 justify-self: center;
                 justify-content: space-between;
                 margin-right: max(0px, env(safe-area-inset-right));
-            }
-
-            .music-player.is-compact {
-                justify-self: end;
             }
 
             .track {
