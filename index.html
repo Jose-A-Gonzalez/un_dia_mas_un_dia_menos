@@ -481,6 +481,10 @@
             padding: 0;
         }
 
+        .desktop-journey-route {
+            display: none;
+        }
+
         .journey-map {
             width: 100%;
             height: auto;
@@ -600,6 +604,179 @@
         @keyframes install-chip-in {
             from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (min-width: 901px) {
+            .journey-page {
+                padding: clamp(34px, 5vh, 58px) clamp(48px, 6vw, 96px) clamp(28px, 4vh, 48px);
+            }
+
+            .journey-content {
+                width: min(100%, 1240px);
+                min-height: min(820px, calc(100svh - 72px));
+                grid-template-rows: auto minmax(330px, 1fr) auto auto;
+                align-content: space-between;
+                gap: clamp(16px, 2.2vh, 28px);
+            }
+
+            .journey-heading h2 {
+                font-size: clamp(2.8rem, 4vw, 4.35rem);
+            }
+
+            .journey-subtitle {
+                font-size: 1rem;
+            }
+
+            .journey-card {
+                display: grid;
+                justify-items: center;
+                gap: clamp(20px, 2.4vh, 30px);
+            }
+
+            .journey-map {
+                display: none;
+            }
+
+            .desktop-journey-route {
+                position: relative;
+                display: block;
+                width: 100%;
+                height: clamp(300px, 36vh, 370px);
+            }
+
+            .desktop-flight-map {
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+                overflow: visible;
+            }
+
+            .desktop-flight-map .route-base,
+            .desktop-flight-map .route-progress {
+                stroke-width: 3.5;
+            }
+
+            .desktop-flight-map .route-base {
+                stroke-dasharray: 3 13;
+            }
+
+            .desktop-country {
+                position: absolute;
+                z-index: 2;
+                display: grid;
+                justify-items: center;
+                gap: 9px;
+            }
+
+            .desktop-country-puerto-rico {
+                top: 47%;
+                left: 0;
+                width: clamp(190px, 17vw, 238px);
+                transform: translateY(-50%);
+            }
+
+            .desktop-country-colombia {
+                top: 45%;
+                right: 1.5%;
+                width: clamp(112px, 9.4vw, 142px);
+                transform: translateY(-50%);
+            }
+
+            .country-silhouette {
+                display: block;
+                width: 100%;
+                height: auto;
+                aspect-ratio: auto;
+                object-fit: contain;
+                filter: drop-shadow(0 14px 18px rgba(0, 0, 0, 0.36)) drop-shadow(0 0 18px rgba(236, 177, 51, 0.14));
+            }
+
+            .country-silhouette-puerto-rico {
+                filter: drop-shadow(0 14px 18px rgba(0, 0, 0, 0.36)) drop-shadow(0 0 18px rgba(114, 217, 154, 0.14));
+            }
+
+            .desktop-country-name {
+                color: rgba(255, 250, 246, 0.92);
+                font-size: 0.82rem;
+                font-weight: 750;
+                letter-spacing: 0.11em;
+                text-transform: uppercase;
+            }
+
+            .desktop-country-time {
+                color: rgba(255, 250, 246, 0.9);
+                font-family: Georgia, "Times New Roman", serif;
+                font-size: clamp(1.05rem, 1.35vw, 1.28rem);
+                font-variant-numeric: tabular-nums;
+                letter-spacing: 0.035em;
+                line-height: 1;
+                text-transform: uppercase;
+            }
+
+            .desktop-country-meta {
+                color: rgba(255, 250, 246, 0.52);
+                font-size: 0.67rem;
+                font-weight: 650;
+                letter-spacing: 0.12em;
+                text-transform: uppercase;
+            }
+
+            #desktop-journey-plane {
+                font-family: "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
+                font-size: 36px;
+                text-anchor: middle;
+                dominant-baseline: central;
+                filter: drop-shadow(0 7px 9px rgba(0, 0, 0, 0.62));
+            }
+
+            .journey-stats {
+                width: min(720px, 62vw);
+                margin-top: 0;
+                gap: clamp(32px, 5vw, 78px);
+            }
+
+            .journey-stat strong {
+                font-size: clamp(3rem, 4.5vw, 4.35rem);
+            }
+
+            .journey-stat span {
+                margin-top: 6px;
+                font-size: 0.7rem;
+            }
+
+            .journey-divider {
+                height: 58px;
+            }
+
+            .journey-phrase {
+                max-width: 44ch;
+                font-size: clamp(1.25rem, 1.7vw, 1.55rem);
+            }
+
+            .back-to-countdown {
+                font-size: 0.74rem;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .journey-content {
+                width: min(100%, 1540px);
+            }
+
+            .desktop-journey-route {
+                height: clamp(340px, 41vh, 410px);
+            }
+
+            .desktop-country-puerto-rico {
+                left: clamp(28px, 2.8vw, 44px);
+                width: clamp(250px, 19vw, 340px);
+            }
+
+            .desktop-country-colombia {
+                right: clamp(80px, 6.5vw, 118px);
+                width: clamp(170px, 12vw, 220px);
+            }
         }
 
         @media (max-width: 600px) {
@@ -827,8 +1004,30 @@
             </header>
 
             <div class="journey-card">
+                <div class="desktop-journey-route" role="img" aria-label="Progreso del viaje de Puerto Rico a Colombia">
+                    <div class="desktop-country desktop-country-puerto-rico">
+                        <img class="country-silhouette country-silhouette-puerto-rico" src="assets/puerto-rico-silhouette.png" alt="">
+                        <span class="desktop-country-name">Puerto Rico</span>
+                        <time class="desktop-country-time" id="puerto-rico-local-time">--:--</time>
+                        <time class="desktop-country-meta" id="puerto-rico-local-date">SJU · FECHA LOCAL</time>
+                    </div>
+
+                    <svg class="desktop-flight-map" viewBox="0 0 1200 340" aria-hidden="true">
+                        <path class="route-base desktop-route-base" d="M220 172 C420 24 780 24 1000 166"></path>
+                        <path class="route-progress" id="desktop-journey-progress-path" d="M220 172 C420 24 780 24 1000 166"></path>
+                        <text id="desktop-journey-plane" x="0" y="0">✈️</text>
+                    </svg>
+
+                    <div class="desktop-country desktop-country-colombia">
+                        <img class="country-silhouette country-silhouette-colombia" src="assets/colombia-silhouette.png" alt="">
+                        <span class="desktop-country-name">Colombia</span>
+                        <time class="desktop-country-time" id="colombia-local-time">--:--</time>
+                        <time class="desktop-country-meta" id="colombia-local-date">MDE · FECHA LOCAL</time>
+                    </div>
+                </div>
+
                 <svg class="journey-map" viewBox="0 0 400 178" role="img" aria-label="Progreso del viaje de San Juan a Medellín">
-                    <path class="route-base" d="M24 106 C104 20 296 20 376 106"></path>
+                    <path class="route-base mobile-route-base" d="M24 106 C104 20 296 20 376 106"></path>
                     <path class="route-progress" id="journey-progress-path" d="M24 106 C104 20 296 20 376 106"></path>
 
                     <circle class="journey-dot" cx="24" cy="106" r="6"></circle>
@@ -883,34 +1082,99 @@
         const hoursElement = document.getElementById("hours");
         const minutesElement = document.getElementById("minutes");
         const secondsElement = document.getElementById("seconds");
-        const journeyPath = document.querySelector(".route-base");
+        const journeyPath = document.querySelector(".mobile-route-base");
         const journeyProgressPath = document.getElementById("journey-progress-path");
         const journeyPlane = document.getElementById("journey-plane");
+        const desktopJourneyPath = document.querySelector(".desktop-route-base");
+        const desktopJourneyProgressPath = document.getElementById("desktop-journey-progress-path");
+        const desktopJourneyPlane = document.getElementById("desktop-journey-plane");
         const journeyPercent = document.getElementById("journey-percent");
         const journeyDays = document.getElementById("journey-days");
+        const puertoRicoLocalTime = document.getElementById("puerto-rico-local-time");
+        const puertoRicoLocalDate = document.getElementById("puerto-rico-local-date");
+        const colombiaLocalTime = document.getElementById("colombia-local-time");
+        const colombiaLocalDate = document.getElementById("colombia-local-date");
+
+        const localClockFormats = {
+            puertoRico: {
+                code: "SJU",
+                time: new Intl.DateTimeFormat("es-PR", {
+                    timeZone: "America/Puerto_Rico",
+                    hour: "numeric",
+                    minute: "2-digit",
+                    hour12: true
+                }),
+                date: new Intl.DateTimeFormat("es-PR", {
+                    timeZone: "America/Puerto_Rico",
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric"
+                })
+            },
+            colombia: {
+                code: "MDE",
+                time: new Intl.DateTimeFormat("es-CO", {
+                    timeZone: "America/Bogota",
+                    hour: "numeric",
+                    minute: "2-digit",
+                    hour12: true
+                }),
+                date: new Intl.DateTimeFormat("es-CO", {
+                    timeZone: "America/Bogota",
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric"
+                })
+            }
+        };
 
         let countdownTimer;
+
+        function updateLocalClocks() {
+            const now = new Date();
+
+            function renderLocalClock(format, timeElement, dateElement) {
+                const dateParts = Object.fromEntries(
+                    format.date.formatToParts(now)
+                        .filter((part) => ["day", "month", "year"].includes(part.type))
+                        .map((part) => [part.type, part.value.replace(".", "")])
+                );
+
+                timeElement.textContent = format.time.format(now);
+                dateElement.textContent = `${format.code} · ${dateParts.day} ${dateParts.month} ${dateParts.year}`;
+                timeElement.dateTime = now.toISOString();
+                dateElement.dateTime = now.toISOString();
+            }
+
+            renderLocalClock(localClockFormats.puertoRico, puertoRicoLocalTime, puertoRicoLocalDate);
+            renderLocalClock(localClockFormats.colombia, colombiaLocalTime, colombiaLocalDate);
+        }
 
         function updateJourney() {
             const now = Date.now();
             const totalJourney = targetDate - journeyStartDate;
             const elapsedJourney = now - journeyStartDate;
             const progress = Math.min(1, Math.max(0, elapsedJourney / totalJourney));
-            const routeLength = journeyPath.getTotalLength();
-            const travelledLength = routeLength * progress;
-            const planePoint = journeyPath.getPointAtLength(travelledLength);
-            const nextPoint = journeyPath.getPointAtLength(Math.min(routeLength, travelledLength + 1));
-            const planeAngle = Math.atan2(nextPoint.y - planePoint.y, nextPoint.x - planePoint.x) * 180 / Math.PI;
             const progressValue = progress < 0.1
                 ? (progress * 100).toFixed(1)
                 : String(Math.round(progress * 100));
             const remainingDays = Math.max(0, Math.floor((targetDate - now) / (1000 * 60 * 60 * 24)));
 
-            journeyProgressPath.style.strokeDasharray = `${routeLength} ${routeLength}`;
-            journeyProgressPath.style.strokeDashoffset = String(routeLength - travelledLength);
-            // The airplane emoji is drawn pointing about 45° upward by default.
-            // Compensate for that built-in angle so its nose follows the route tangent.
-            journeyPlane.setAttribute("transform", `translate(${planePoint.x} ${planePoint.y}) rotate(${planeAngle + 45})`);
+            function positionPlane(path, progressPath, plane) {
+                const routeLength = path.getTotalLength();
+                const travelledLength = routeLength * progress;
+                const planePoint = path.getPointAtLength(travelledLength);
+                const nextPoint = path.getPointAtLength(Math.min(routeLength, travelledLength + 1));
+                const planeAngle = Math.atan2(nextPoint.y - planePoint.y, nextPoint.x - planePoint.x) * 180 / Math.PI;
+
+                progressPath.style.strokeDasharray = `${routeLength} ${routeLength}`;
+                progressPath.style.strokeDashoffset = String(routeLength - travelledLength);
+                // The airplane emoji is drawn pointing about 45° upward by default.
+                plane.setAttribute("transform", `translate(${planePoint.x} ${planePoint.y}) rotate(${planeAngle + 45})`);
+            }
+
+            positionPlane(journeyPath, journeyProgressPath, journeyPlane);
+            positionPlane(desktopJourneyPath, desktopJourneyProgressPath, desktopJourneyPlane);
             journeyPercent.textContent = `${progressValue}%`;
             journeyDays.textContent = String(remainingDays);
         }
@@ -942,6 +1206,8 @@
 
         updateCountdown();
         countdownTimer = setInterval(updateCountdown, 1000);
+        updateLocalClocks();
+        setInterval(updateLocalClocks, 30000);
 
         const playlist = [
             {

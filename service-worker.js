@@ -1,5 +1,5 @@
 // Cambia este número en cada publicación para renovar los archivos guardados.
-const APP_VERSION = "romantic-countdown-v7-install";
+const APP_VERSION = "romantic-countdown-v13-desktop-live-clocks";
 const SHELL_CACHE = `${APP_VERSION}-shell`;
 const PHOTO_CACHE = `${APP_VERSION}-photos`;
 // Cambia esta versión únicamente cuando cambien los archivos de música.
@@ -13,6 +13,8 @@ const APP_SHELL = [
     "./index.html",
     "./manifest.webmanifest",
     "./assets/photo.jpg",
+    "./assets/puerto-rico-silhouette.png",
+    "./assets/colombia-silhouette.png",
     "./icons/app-icon-192.png",
     "./icons/app-icon-512.png",
     "./icons/app-icon-maskable-512.png",
