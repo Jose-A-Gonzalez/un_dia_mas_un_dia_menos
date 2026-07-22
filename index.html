@@ -10,7 +10,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Un día menos">
-    <link rel="manifest" href="./manifest.webmanifest?v=18-countdown-refuge">
+    <link rel="manifest" href="./manifest.webmanifest?v=19-music-upward">
     <link rel="icon" href="./icons/app-icon-192.png" sizes="192x192">
     <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
     <title>Un día más, un día menos 💚</title>
@@ -1268,6 +1268,7 @@
 
             .countdown-controls {
                 grid-template-columns: auto minmax(0, 1fr);
+                align-items: end;
                 gap: 8px;
             }
 
@@ -1312,6 +1313,31 @@
                 justify-self: end;
                 justify-content: space-between;
                 margin-right: max(0px, env(safe-area-inset-right));
+            }
+
+            .music-player:not(.is-compact) {
+                min-height: clamp(88px, 12svh, 104px);
+                padding: 10px 8px 7px;
+                flex-direction: column;
+                align-items: stretch;
+                justify-content: flex-end;
+                gap: 5px;
+                border-radius: 22px;
+            }
+
+            .music-player:not(.is-compact) .track {
+                width: 100%;
+                padding: 0 8px;
+                flex: none;
+                text-align: left;
+            }
+
+            .music-player:not(.is-compact) #now-playing {
+                max-width: 100%;
+            }
+
+            .music-player:not(.is-compact) .music-buttons {
+                justify-content: center;
             }
 
             .track {
