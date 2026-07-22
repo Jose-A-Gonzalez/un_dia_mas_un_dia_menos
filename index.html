@@ -10,7 +10,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Un día menos">
-    <link rel="manifest" href="./manifest.webmanifest">
+    <link rel="manifest" href="./manifest.webmanifest?v=18-countdown-refuge">
     <link rel="icon" href="./icons/app-icon-192.png" sizes="192x192">
     <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
     <title>Un día más, un día menos 💚</title>
@@ -135,6 +135,25 @@
             justify-items: center;
             gap: clamp(8px, 1.8svh, 16px);
             animation: rise 850ms 120ms ease-out both;
+        }
+
+        .countdown-controls {
+            width: min(660px, 74svh, calc(100vw - 28px));
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            align-items: center;
+            gap: clamp(8px, 1.6vw, 16px);
+        }
+
+        .countdown-refuge-link {
+            justify-self: start;
+            min-height: clamp(42px, 6.5svh, 58px);
+            padding-inline: clamp(12px, 2svh, 18px);
+            background: rgba(13, 17, 28, 0.54);
+            box-shadow: 0 14px 38px rgba(0, 0, 0, 0.32);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            white-space: nowrap;
         }
 
         .countdown-card {
@@ -592,6 +611,447 @@
             text-transform: uppercase;
         }
 
+        .journey-footer-nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px 26px;
+        }
+
+        .refuge-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            border: 1px solid rgba(114, 217, 154, 0.34);
+            border-radius: 999px;
+            background: rgba(114, 217, 154, 0.08);
+            color: #dff9e8;
+            font-size: 0.7rem;
+            font-weight: 750;
+            letter-spacing: 0.1em;
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: border-color 180ms ease, background 180ms ease, transform 180ms ease;
+        }
+
+        .refuge-link:hover,
+        .refuge-link:focus-visible {
+            border-color: rgba(114, 217, 154, 0.72);
+            background: rgba(114, 217, 154, 0.16);
+            outline: none;
+            transform: translateY(-1px);
+        }
+
+        .refuge-page {
+            position: relative;
+            min-height: 100svh;
+            padding: max(34px, env(safe-area-inset-top)) 18px max(34px, env(safe-area-inset-bottom));
+            display: grid;
+            place-items: center;
+            overflow: hidden;
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
+            isolation: isolate;
+        }
+
+        .refuge-page::before,
+        .refuge-page::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+
+        .refuge-page::before {
+            z-index: -2;
+            background:
+                radial-gradient(circle at 18% 18%, rgba(83, 139, 103, 0.3), transparent 34%),
+                radial-gradient(circle at 86% 78%, rgba(210, 170, 84, 0.18), transparent 38%),
+                linear-gradient(145deg, #0b1916 0%, #0c1517 52%, #17170f 100%);
+        }
+
+        .refuge-page::after {
+            z-index: -1;
+            opacity: 0.14;
+            background-image:
+                linear-gradient(90deg, transparent 49.8%, rgba(255, 250, 236, 0.08) 50%, transparent 50.2%),
+                radial-gradient(circle, rgba(255, 250, 236, 0.2) 0 1px, transparent 1.5px);
+            background-size: 100% 100%, 26px 26px;
+            mask-image: linear-gradient(180deg, transparent, black 12%, black 88%, transparent);
+        }
+
+        .refuge-shell {
+            width: min(100%, 1100px);
+        }
+
+        .refuge-view[hidden] {
+            display: none;
+        }
+
+        .refuge-home {
+            display: grid;
+            justify-items: center;
+            gap: clamp(22px, 4vh, 38px);
+            text-align: center;
+        }
+
+        .refuge-heading {
+            max-width: 720px;
+        }
+
+        .refuge-heading .eyebrow {
+            color: rgba(114, 217, 154, 0.86);
+        }
+
+        .refuge-heading h2,
+        .refuge-resource-heading h2 {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(2.25rem, 6vw, 4.25rem);
+            font-weight: 400;
+            letter-spacing: -0.03em;
+            line-height: 1.02;
+        }
+
+        .refuge-intro {
+            max-width: 66ch;
+            margin: 14px auto 0;
+            color: rgba(255, 250, 246, 0.68);
+            font-size: clamp(0.88rem, 2.5vw, 1.02rem);
+            line-height: 1.65;
+        }
+
+        .emotion-grid {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .emotion-card {
+            width: 100%;
+            min-height: 128px;
+            height: auto;
+            padding: 20px 18px;
+            display: grid;
+            align-content: center;
+            justify-items: start;
+            gap: 8px;
+            border: 1px solid rgba(255, 250, 246, 0.13);
+            border-radius: 22px;
+            background: rgba(255, 250, 246, 0.055);
+            color: #fffaf6;
+            text-align: left;
+            text-decoration: none;
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            transition: border-color 180ms ease, background 180ms ease, transform 180ms ease;
+        }
+
+        .emotion-card:not(:disabled):hover,
+        .emotion-card:not(:disabled):focus-visible {
+            border-color: rgba(114, 217, 154, 0.62);
+            background: rgba(114, 217, 154, 0.12);
+            outline: none;
+            transform: translateY(-2px);
+        }
+
+        .emotion-card:disabled {
+            cursor: default;
+            opacity: 0.46;
+        }
+
+        .emotion-card:disabled:hover {
+            background: rgba(255, 250, 246, 0.055);
+            transform: none;
+        }
+
+        .emotion-name {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(1.15rem, 2vw, 1.45rem);
+        }
+
+        .emotion-status {
+            color: rgba(255, 250, 246, 0.48);
+            font-size: 0.62rem;
+            font-weight: 750;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .emotion-card.is-ready .emotion-status {
+            color: var(--accent);
+        }
+
+        .refuge-purpose {
+            max-width: 78ch;
+            color: rgba(255, 250, 246, 0.5);
+            font-size: 0.72rem;
+            line-height: 1.6;
+        }
+
+        .refuge-resource {
+            width: 100%;
+        }
+
+        .resource-topbar {
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .resource-back,
+        .resource-home-link {
+            color: rgba(255, 250, 246, 0.72);
+            font-size: 0.68rem;
+            font-weight: 750;
+            letter-spacing: 0.11em;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        .resource-back:hover,
+        .resource-back:focus-visible,
+        .resource-home-link:hover,
+        .resource-home-link:focus-visible {
+            color: #fffaf6;
+            outline: none;
+        }
+
+        .resource-layout {
+            display: grid;
+            grid-template-columns: minmax(250px, 0.82fr) minmax(0, 1.58fr);
+            gap: clamp(18px, 3vw, 34px);
+            align-items: start;
+        }
+
+        .resource-summary,
+        .resource-reading {
+            border: 1px solid rgba(255, 250, 246, 0.13);
+            border-radius: 28px;
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+        }
+
+        .resource-summary {
+            position: sticky;
+            top: 28px;
+            padding: clamp(24px, 3vw, 36px);
+            background: rgba(8, 24, 20, 0.66);
+        }
+
+        .refuge-resource-heading .eyebrow {
+            color: rgba(114, 217, 154, 0.88);
+        }
+
+        .resource-recognition {
+            margin-top: 18px;
+            color: rgba(255, 250, 246, 0.74);
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(1.05rem, 2vw, 1.28rem);
+            line-height: 1.55;
+        }
+
+        .scripture-focus {
+            margin-top: 26px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255, 250, 246, 0.12);
+        }
+
+        .scripture-label {
+            color: rgba(255, 250, 246, 0.48);
+            font-size: 0.62rem;
+            font-weight: 750;
+            letter-spacing: 0.13em;
+            text-transform: uppercase;
+        }
+
+        .scripture-focus strong {
+            margin-top: 7px;
+            display: block;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 1.35rem;
+            font-weight: 400;
+        }
+
+        .scripture-link {
+            margin-top: 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #a9ecc0;
+            font-size: 0.72rem;
+            font-weight: 750;
+            letter-spacing: 0.06em;
+            text-decoration: none;
+        }
+
+        .scripture-link:hover,
+        .scripture-link:focus-visible {
+            color: #dff9e8;
+            outline: none;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+        }
+
+        .resource-reading {
+            padding: clamp(24px, 4vw, 46px);
+            background: rgba(255, 250, 236, 0.94);
+            color: #1b2a24;
+            box-shadow: 0 30px 90px rgba(0, 0, 0, 0.26);
+        }
+
+        .resource-quote {
+            margin-bottom: 30px;
+            padding: 0 0 26px 22px;
+            border-bottom: 1px solid rgba(27, 42, 36, 0.12);
+            border-left: 3px solid #4d9a6a;
+            color: #21412f;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(1.25rem, 2.7vw, 1.8rem);
+            line-height: 1.42;
+        }
+
+        .resource-quote cite {
+            margin-top: 12px;
+            display: block;
+            color: #617167;
+            font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+            font-size: 0.68rem;
+            font-style: normal;
+            font-weight: 750;
+            letter-spacing: 0.11em;
+            text-transform: uppercase;
+        }
+
+        .reading-section + .reading-section {
+            margin-top: 28px;
+            padding-top: 26px;
+            border-top: 1px solid rgba(27, 42, 36, 0.1);
+        }
+
+        .reading-section h3 {
+            margin-bottom: 10px;
+            color: #31553f;
+            font-size: 0.68rem;
+            font-weight: 800;
+            letter-spacing: 0.13em;
+            text-transform: uppercase;
+        }
+
+        .reading-section p,
+        .reading-section li {
+            color: #293b33;
+            font-size: clamp(0.9rem, 1.7vw, 1rem);
+            line-height: 1.72;
+        }
+
+        .reading-section ol {
+            padding-left: 1.2rem;
+        }
+
+        .reading-section li + li {
+            margin-top: 8px;
+        }
+
+        .guided-prayer {
+            color: #35483f;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(1rem, 2vw, 1.14rem) !important;
+            font-style: italic;
+        }
+
+        .deeper-resources-intro {
+            margin-bottom: 16px;
+        }
+
+        .deeper-resources-grid {
+            display: grid;
+            gap: 12px;
+        }
+
+        .deeper-resource-card {
+            padding: 18px;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            gap: 12px 20px;
+            align-items: center;
+            border: 1px solid rgba(49, 85, 63, 0.16);
+            border-radius: 18px;
+            background: rgba(77, 154, 106, 0.055);
+        }
+
+        .deeper-resource-kind {
+            margin-bottom: 6px;
+            color: #557064 !important;
+            font-size: 0.61rem !important;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .deeper-resource-card h4 {
+            color: #21412f;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(1.02rem, 2vw, 1.18rem);
+            font-weight: 400;
+            line-height: 1.35;
+        }
+
+        .deeper-resource-source {
+            margin-top: 5px;
+            color: #66766d !important;
+            font-size: 0.72rem !important;
+            line-height: 1.45 !important;
+        }
+
+        .deeper-resource-description {
+            grid-column: 1 / -1;
+            color: #3f5148 !important;
+            font-size: 0.82rem !important;
+            line-height: 1.58 !important;
+        }
+
+        .deeper-resource-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 42px;
+            padding: 10px 14px;
+            border: 1px solid rgba(49, 85, 63, 0.28);
+            border-radius: 999px;
+            color: #31553f;
+            font-size: 0.67rem;
+            font-weight: 800;
+            letter-spacing: 0.06em;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .deeper-resource-link:hover,
+        .deeper-resource-link:focus-visible {
+            border-color: #4d9a6a;
+            background: rgba(77, 154, 106, 0.1);
+            outline: none;
+        }
+
+        .external-resources-note {
+            margin-top: 16px;
+            color: #6b776f !important;
+            font-size: 0.68rem !important;
+            line-height: 1.5 !important;
+        }
+
+        .resource-note {
+            margin-top: 30px;
+            color: #6b776f;
+            font-size: 0.7rem;
+            line-height: 1.55;
+        }
+
         @keyframes reveal {
             from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -758,6 +1218,10 @@
             .back-to-countdown {
                 font-size: 0.74rem;
             }
+
+            .refuge-page {
+                padding: clamp(42px, 6vh, 72px) clamp(48px, 6vw, 96px);
+            }
         }
 
         @media (min-width: 1200px) {
@@ -802,6 +1266,18 @@
                 border-radius: 24px;
             }
 
+            .countdown-controls {
+                grid-template-columns: auto minmax(0, 1fr);
+                gap: 8px;
+            }
+
+            .countdown-refuge-link {
+                min-height: clamp(42px, 6.5svh, 58px);
+                padding: 8px 11px;
+                font-size: clamp(0.53rem, 2.15vw, 0.61rem);
+                letter-spacing: 0.075em;
+            }
+
             .countdown-title {
                 margin-bottom: 10px;
                 font-size: 0.82rem;
@@ -831,8 +1307,9 @@
             }
 
             .music-player {
-                width: min(100%, 340px, 42svh);
-                justify-self: center;
+                width: 100%;
+                min-width: 0;
+                justify-self: end;
                 justify-content: space-between;
                 margin-right: max(0px, env(safe-area-inset-right));
             }
@@ -903,6 +1380,74 @@
             .journey-phrase {
                 font-size: clamp(1.18rem, 4.8vw, 1.45rem);
             }
+
+            .journey-footer-nav {
+                gap: 10px 16px;
+            }
+
+            .refuge-link {
+                padding: 8px 12px;
+                font-size: 0.61rem;
+            }
+
+            .refuge-page {
+                min-height: 100svh;
+                padding: max(30px, env(safe-area-inset-top)) 12px max(30px, env(safe-area-inset-bottom));
+                overflow: visible;
+            }
+
+            .refuge-home {
+                gap: 22px;
+            }
+
+            .emotion-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 10px;
+            }
+
+            .emotion-card {
+                min-height: 105px;
+                padding: 16px 14px;
+                border-radius: 18px;
+            }
+
+            .resource-topbar {
+                margin-bottom: 14px;
+            }
+
+            .resource-layout {
+                grid-template-columns: 1fr;
+                gap: 14px;
+            }
+
+            .resource-summary {
+                position: static;
+                padding: 24px 20px;
+                border-radius: 22px;
+            }
+
+            .resource-reading {
+                padding: 26px 20px;
+                border-radius: 22px;
+            }
+
+            .resource-quote {
+                padding-left: 16px;
+            }
+
+            .deeper-resource-card {
+                grid-template-columns: 1fr;
+                padding: 16px;
+            }
+
+            .deeper-resource-description,
+            .deeper-resource-link {
+                grid-column: 1;
+            }
+
+            .deeper-resource-link {
+                justify-self: start;
+            }
         }
 
         @keyframes heart-whisper {
@@ -961,16 +1506,20 @@
         <div aria-hidden="true"></div>
 
         <section class="bottom" aria-label="Cuenta regresiva para nuestro encuentro">
-            <div class="music-player is-compact" aria-label="Reproductor de nuestra música" aria-expanded="false">
-                <button class="collapse-player-btn" id="collapse-player-btn" type="button" aria-label="Ocultar nombre de la canción">−</button>
-                <div class="track">
-                    <span class="track-kicker">Nuestra canción</span>
-                    <span id="now-playing">Coincidir</span>
-                </div>
-                <div class="music-buttons">
-                    <button id="prev-btn" type="button" aria-label="Canción anterior">⏮</button>
-                    <button id="play-btn" type="button" aria-label="Reproducir">▶</button>
-                    <button id="next-btn" type="button" aria-label="Canción siguiente">⏭</button>
+            <div class="countdown-controls">
+                <a class="refuge-link countdown-refuge-link" href="#refugio">Refugio en la Palabra <span aria-hidden="true">↓</span></a>
+
+                <div class="music-player is-compact" aria-label="Reproductor de nuestra música" aria-expanded="false">
+                    <button class="collapse-player-btn" id="collapse-player-btn" type="button" aria-label="Ocultar nombre de la canción">−</button>
+                    <div class="track">
+                        <span class="track-kicker">Nuestra canción</span>
+                        <span id="now-playing">Coincidir</span>
+                    </div>
+                    <div class="music-buttons">
+                        <button id="prev-btn" type="button" aria-label="Canción anterior">⏮</button>
+                        <button id="play-btn" type="button" aria-label="Reproducir">▶</button>
+                        <button id="next-btn" type="button" aria-label="Canción siguiente">⏭</button>
+                    </div>
                 </div>
             </div>
 
@@ -1052,7 +1601,121 @@
             </div>
 
             <p class="journey-phrase">Cada día cruzo un poquito más de distancia hacia ti.</p>
-            <a class="back-to-countdown" href="#countdown-screen">⌃ Volver a nuestra cuenta</a>
+            <nav class="journey-footer-nav" aria-label="Continuar en la aplicación">
+                <a class="back-to-countdown" href="#countdown-screen">⌃ Volver a nuestra cuenta</a>
+            </nav>
+        </div>
+    </section>
+
+    <section class="refuge-page" id="refugio" aria-labelledby="refuge-title">
+        <div class="refuge-shell">
+            <div class="refuge-view refuge-home" id="refuge-home">
+                <header class="refuge-heading">
+                    <p class="eyebrow">Un refugio en la Palabra</p>
+                    <h2 id="refuge-title">¿Cómo está tu corazón hoy?</h2>
+                    <p class="refuge-intro">No tienes que ordenar todo lo que sientes antes de acercarte a Dios. Elige una palabra que se parezca a lo que hay en tu corazón y comienza por escuchar Su Palabra.</p>
+                </header>
+
+                <div class="emotion-grid" aria-label="Estados del corazón">
+                    <a class="emotion-card is-ready" href="#refugio/triste">
+                        <span class="emotion-name">Triste</span>
+                        <span class="emotion-status">Lectura disponible</span>
+                    </a>
+                    <a class="emotion-card is-ready" href="#refugio/ansioso">
+                        <span class="emotion-name">Ansioso o con miedo</span>
+                        <span class="emotion-status">Lectura disponible</span>
+                    </a>
+                    <a class="emotion-card is-ready" href="#refugio/molesto">
+                        <span class="emotion-name">Molesto</span>
+                        <span class="emotion-status">Lectura disponible</span>
+                    </a>
+                    <a class="emotion-card is-ready" href="#refugio/confundido">
+                        <span class="emotion-name">Confundido</span>
+                        <span class="emotion-status">Lectura disponible</span>
+                    </a>
+                    <a class="emotion-card is-ready" href="#refugio/solo">
+                        <span class="emotion-name">Solo</span>
+                        <span class="emotion-status">Lectura disponible</span>
+                    </a>
+                    <a class="emotion-card is-ready" href="#refugio/agradecido">
+                        <span class="emotion-name">Agradecido</span>
+                        <span class="emotion-status">Lectura disponible</span>
+                    </a>
+                    <a class="emotion-card is-ready" href="#refugio/conflicto">
+                        <span class="emotion-name">Tenemos un conflicto</span>
+                        <span class="emotion-status">Lectura disponible</span>
+                    </a>
+                </div>
+
+                <p class="refuge-purpose">Estas guías no sustituyen la lectura de la Escritura, la oración, la iglesia local ni el consejo pastoral. Son un punto de partida para llevar lo que sentimos delante de Dios y examinarlo a la luz de Su Palabra.</p>
+            </div>
+
+            <article class="refuge-view refuge-resource" id="refuge-resource" aria-labelledby="refuge-resource-title" hidden>
+                <nav class="resource-topbar" aria-label="Navegación del recurso">
+                    <a class="resource-back" href="#refugio">← Todas las opciones</a>
+                    <a class="resource-home-link" href="#countdown-screen">Nuestra cuenta</a>
+                </nav>
+
+                <div class="resource-layout">
+                    <aside class="resource-summary">
+                        <header class="refuge-resource-heading">
+                            <p class="eyebrow">Cuando te sientes</p>
+                            <h2 id="refuge-resource-title" tabindex="-1"></h2>
+                        </header>
+
+                        <p class="resource-recognition" id="resource-recognition"></p>
+
+                        <div class="scripture-focus">
+                            <span class="scripture-label">Pasaje principal</span>
+                            <strong id="resource-passage"></strong>
+                            <a class="scripture-link" id="resource-scripture-link" href="#" target="_blank" rel="noopener noreferrer">Leer el pasaje completo en LBLA ↗</a>
+                        </div>
+                    </aside>
+
+                    <div class="resource-reading">
+                        <blockquote class="resource-quote">
+                            <span id="resource-quote"></span>
+                            <cite id="resource-quote-cite"></cite>
+                        </blockquote>
+
+                        <section class="reading-section">
+                            <h3>¿Qué ocurre en el pasaje?</h3>
+                            <p id="resource-context"></p>
+                        </section>
+
+                        <section class="reading-section">
+                            <h3>Verdad para recordar</h3>
+                            <p id="resource-truth"></p>
+                        </section>
+
+                        <section class="reading-section">
+                            <h3>Una oración guiada</h3>
+                            <p class="guided-prayer" id="resource-prayer"></p>
+                        </section>
+
+                        <section class="reading-section">
+                            <h3>Un siguiente paso</h3>
+                            <ol id="resource-steps"></ol>
+                        </section>
+
+                        <section class="reading-section" id="resource-caution-section" hidden>
+                            <h3>Una precaución importante</h3>
+                            <p id="resource-caution"></p>
+                        </section>
+
+                        <section class="reading-section" aria-labelledby="deeper-resources-title-dynamic">
+                            <h3 id="deeper-resources-title-dynamic">Para profundizar</h3>
+                            <p class="deeper-resources-intro">Estos recursos son apoyos secundarios. Úsalos después de leer el pasaje principal y evalúa todo a la luz de la Escritura.</p>
+
+                            <div class="deeper-resources-grid" id="resource-deeper-list"></div>
+
+                            <p class="external-resources-note">Los enlaces externos no están disponibles sin conexión. Su inclusión no significa que cada afirmación de esos recursos tenga la misma autoridad que la Biblia.</p>
+                        </section>
+
+                        <p class="resource-note">La reflexión y la oración son ayudas pastorales derivadas del pasaje. La Escritura sigue siendo la autoridad y debe leerse completa en su contexto.</p>
+                    </div>
+                </div>
+            </article>
         </div>
     </section>
 
@@ -1372,6 +2035,408 @@
         }
 
         showImportantReleaseNotice();
+
+        const refugeGuides = {
+            triste: {
+                title: "Triste",
+                recognition: "Puedes reconocer tu tristeza delante de Dios sin fingir que todo está bien.",
+                passage: "Salmos 42-43",
+                scriptureUrl: "https://www.biblegateway.com/passage/?search=Salmos%2042-43&version=LBLA",
+                quote: "“¿Por qué te abates, alma mía, y por qué te turbas dentro de mí? Espera en Dios, pues he de alabarle otra vez.”",
+                quoteCite: "Salmo 42:11 · LBLA",
+                context: "La voz del salmo tiene sed de Dios, llora, recuerda la adoración con la congregación y soporta palabras que hieren. Incluso pregunta por qué Dios parece haberla olvidado. El dolor no se esconde, pero tampoco recibe la última palabra: el salmista habla a su propia alma y la llama a esperar nuevamente en Dios.",
+                truth: "La fe bíblica no exige fingir que no estamos abatidos. Salmos 42-43 nos enseñan a llevar la tristeza delante de Dios, recordar quién Él es y dirigir nuestra esperanza hacia Él, aun antes de que cambien las circunstancias.",
+                prayer: "Señor, mi alma está abatida y no quiero esconderlo delante de Ti. Ayúdame a decirte con verdad lo que me duele. Recuérdame Tu misericordia y enséñame a esperar en Ti, incluso mientras todavía estoy triste. Sostén mi fe y vuelve mi corazón hacia Ti. Amén.",
+                steps: [
+                    "Lee Salmo 42 y luego Salmo 43 sin prisa.",
+                    "Identifica una frase que describa el dolor y otra que muestre quién es Dios.",
+                    "Usa esas dos frases para hablar con Dios con tus propias palabras."
+                ],
+                resources: [
+                    {
+                        kind: "Artículo · Español · Requiere internet",
+                        title: "¿Está bien que los cristianos lamenten?",
+                        source: "Keith A. Evans · Ministerios Ligonier",
+                        url: "https://es.ligonier.org/articulos/esta-bien-que-los-cristianos-lamenten/",
+                        cta: "Abrir artículo ↗",
+                        description: "Explica por qué el creyente puede reconocer el dolor con honestidad, lamentarse con esperanza y acompañar sin apresurar el duelo de otros."
+                    },
+                    {
+                        kind: "Devocional · Español · Requiere internet",
+                        title: "3 razones para tener esperanza ante el dolor y la preocupación",
+                        source: "Alistair Begg · Coalición por el Evangelio",
+                        url: "https://www.coalicionporelevangelio.org/articulo/esperanza-dolor-preocupacion/",
+                        cta: "Abrir devocional ↗",
+                        description: "Muestra que la Escritura reconoce el dolor real y que la esperanza cristiana puede coexistir con lágrimas y pérdida."
+                    },
+                    {
+                        kind: "Sermón en audio · Español · Requiere internet",
+                        title: "Tu sufrimiento y el carácter de Dios",
+                        source: "Miguel Núñez · Coalición por el Evangelio",
+                        url: "https://www.coalicionporelevangelio.org/podcasts/un-sermon-para-tu-semana-podcast/tu-sufrimiento-y-el-caracter-de-dios/",
+                        cta: "Escuchar sermón ↗",
+                        description: "Una exposición basada en Filipenses 3:10 sobre la relación entre el sufrimiento, el conocimiento de Cristo y el carácter de Dios."
+                    }
+                ]
+            },
+            ansioso: {
+                title: "Ansioso o con miedo",
+                recognition: "No tienes que resolver el futuro antes de acercarte a Dios. Puedes llevarle con honestidad aquello que temes y no controlas.",
+                passage: "Filipenses 4:4-9",
+                scriptureUrl: "https://www.biblegateway.com/passage/?search=Filipenses%204%3A4-9&version=LBLA",
+                quote: "“El Señor está cerca.”",
+                quoteCite: "Filipenses 4:5 · LBLA",
+                context: "Pablo escribe a una iglesia real que enfrentaba tensiones y necesidades. No ofrece una técnica para negar la angustia. Dirige a los creyentes a recordar la cercanía del Señor, presentar peticiones concretas con gratitud, ocupar la mente en lo verdadero y practicar lo aprendido. La paz prometida guarda el corazón y la mente en Cristo, no en el control de las circunstancias.",
+                truth: "La respuesta bíblica a la ansiedad no es fingir calma ni adivinar el futuro. Es volver una y otra vez al Dios cercano: orar por lo concreto, recordar Su cuidado, pensar conforme a la verdad y obedecer en el siguiente paso que sí tenemos delante.",
+                prayer: "Padre, Tú conoces lo que temo y cuánto deseo controlar lo que viene. Te entrego estas preocupaciones una por una. Recuérdame que estás cerca, guarda mi mente en Cristo y ayúdame a pensar en lo verdadero y a obedecerte hoy. Gracias porque no tengo que sostener mi vida por mis propias fuerzas. Amén.",
+                steps: [
+                    "Lee Filipenses 4:4-9 y subraya lo que el pasaje manda hacer, no solo lo que promete sentir.",
+                    "Escribe dos preocupaciones concretas y conviértelas en peticiones específicas delante de Dios.",
+                    "Por cada preocupación, anota una verdad segura sobre Dios y una acción fiel que puedas realizar hoy."
+                ],
+                resources: [
+                    {
+                        kind: "Artículo · Español · Requiere internet",
+                        title: "Cómo vivir fielmente con ansiedad",
+                        source: "Aaron L. Garriott · Ministerios Ligonier",
+                        url: "https://es.ligonier.org/articulos/como-vivir-fielmente-con-ansiedad/",
+                        cta: "Abrir artículo ↗",
+                        description: "Reconoce que la ansiedad puede involucrar aspectos físicos y espirituales, y propone una respuesta centrada en la providencia, la verdad y la perseverancia."
+                    },
+                    {
+                        kind: "Artículo · Español · Requiere internet",
+                        title: "La ansiedad y el evangelio",
+                        source: "Brittany Kauflin · Coalición por el Evangelio",
+                        url: "https://www.coalicionporelevangelio.org/articulo/la-ansiedad-y-el-evangelio/",
+                        cta: "Abrir artículo ↗",
+                        description: "Ayuda a examinar el deseo de control y dirige la ansiedad hacia el cuidado de Dios mostrado en el evangelio."
+                    },
+                    {
+                        kind: "Programa en audio · Español · Requiere internet",
+                        title: "Cómo lidiar con la ansiedad",
+                        source: "R.C. Sproul · Renovando Tu Mente",
+                        url: "https://es.ligonier.org/rtm/como-lidiar-con-la-ansiedad/",
+                        cta: "Escuchar programa ↗",
+                        description: "Distingue clases de temor y muestra cómo las promesas y la presencia de Dios orientan la respuesta cristiana al futuro."
+                    }
+                ]
+            },
+            molesto: {
+                title: "Molesto",
+                recognition: "Puedes reconocer que estás enojado sin convertir tu enojo en juez, excusa o permiso para herir.",
+                passage: "Efesios 4:25-32",
+                scriptureUrl: "https://www.biblegateway.com/passage/?search=Efesios%204%3A25-32&version=LBLA",
+                quote: "“Airaos, pero no pequéis.”",
+                quoteCite: "Efesios 4:26 · LBLA",
+                context: "Efesios 4 describe la nueva vida que fluye de haber aprendido a Cristo. Pablo no trata el enojo de manera aislada: lo relaciona con decir la verdad, cuidar las palabras, abandonar la amargura y responder con bondad, misericordia y perdón. La pregunta no es solo si hubo una causa real para molestarse, sino también qué está produciendo ese enojo en el corazón y en la forma de tratar al prójimo.",
+                truth: "No todo enojo tiene la misma causa, pero el enojo humano puede convertirse rápidamente en pecado. Cristo nos llama a examinarlo, renunciar a la amargura y usar palabras que den gracia, recordando el perdón que hemos recibido en Él.",
+                prayer: "Señor, Tú ves lo que ocurrió y también ves mi corazón con perfecta claridad. Muéstrame si mi enojo defiende lo justo o si está protegiendo mi orgullo y mis deseos. Guárdame de pecar con mis palabras y acciones. Hazme ver mi propia responsabilidad y ayúdame a responder con verdad, dominio propio, misericordia y amor. Amén.",
+                steps: [
+                    "Antes de responder, nombra con precisión qué ocurrió y qué deseas que la otra persona haga o reconozca.",
+                    "Pregunta qué parte de tu reacción contradice Efesios 4:25-32: falsedad, palabras dañinas, amargura, gritos o falta de perdón.",
+                    "Si necesitas hablar, espera hasta poder buscar verdad y restauración, no castigo ni victoria."
+                ],
+                resources: [
+                    {
+                        kind: "Programa en audio · Español · Requiere internet",
+                        title: "Cómo lidiar con la ira",
+                        source: "R.C. Sproul · Renovando Tu Mente",
+                        url: "https://es.ligonier.org/videos/como-enfrentar-problemas-dificiles/como-lidiar-con-la-ira/",
+                        cta: "Escuchar programa ↗",
+                        description: "Examina la diferencia entre el enojo y el pecado, y el peligro de perder el dominio propio."
+                    },
+                    {
+                        kind: "Artículo · Español · Requiere internet",
+                        title: "¿Qué significa ‘Enójense, pero no pequen’ en la Biblia?",
+                        source: "Nimrod López Noj · Coalición por el Evangelio",
+                        url: "https://www.coalicionporelevangelio.org/articulo/enojo-ira-pecado-biblia/",
+                        cta: "Abrir artículo ↗",
+                        description: "Lee Efesios 4:26 dentro del evangelio y explica por qué el enojo debe quedar gobernado por amor, sabiduría y gracia."
+                    },
+                    {
+                        kind: "Artículo · Español · Requiere internet",
+                        title: "Las raíces de la ira pecaminosa",
+                        source: "Jeremy Pierre · Ministerios Ligonier",
+                        url: "https://es.ligonier.org/articulos/las-raices-de-la-ira-pecaminosa/",
+                        cta: "Abrir artículo ↗",
+                        description: "Ayuda a rastrear la ira hasta deseos dominantes, ansiedades, desalientos y heridas relacionales que necesitan ser rendidos al Señor."
+                    }
+                ]
+            },
+            confundido: {
+                title: "Confundido",
+                recognition: "No conocer todavía la respuesta no significa que Dios te haya abandonado ni que debas fabricar una señal.",
+                passage: "Santiago 1:2-8",
+                scriptureUrl: "https://www.biblegateway.com/passage/?search=Santiago%201%3A2-8&version=LBLA",
+                quote: "“Si alguno de vosotros se ve falto de sabiduría, que la pida a Dios.”",
+                quoteCite: "Santiago 1:5 · LBLA",
+                context: "Santiago habla a creyentes que atraviesan pruebas. En ese contexto, la sabiduría no es información secreta sobre el futuro, sino la capacidad dada por Dios para perseverar y actuar fielmente en medio de la prueba. Dios invita a pedirla porque da generosamente. La advertencia sobre dudar apunta a un corazón dividido e inestable, no a la obligación de sentir certeza emocional absoluta antes de actuar.",
+                truth: "Cuando falta claridad, Dios no nos manda descifrar Su voluntad secreta. Nos llama a pedir sabiduría, obedecer lo que ya reveló en Su Palabra, buscar consejo maduro y tomar decisiones con fe humilde bajo Su providencia.",
+                prayer: "Dios sabio y generoso, no veo con claridad qué debo hacer. Líbrame de buscar señales que Tú no has prometido y de confundir mis deseos con Tu dirección. Dame sabiduría para aplicar Tu Palabra, humildad para escuchar consejo y fe para obedecer aunque no conozca todo el resultado. Amén.",
+                steps: [
+                    "Lee Santiago 1:2-8 y escribe qué relación establece el pasaje entre prueba, perseverancia y sabiduría.",
+                    "Separa en dos columnas lo que Dios ya reveló con claridad y lo que todavía pertenece al futuro desconocido.",
+                    "Consulta a una persona madura que conozca la Escritura y la situación, y evalúa cuál opción permite obedecer y amar mejor."
+                ],
+                resources: [
+                    {
+                        kind: "Programa en audio · Español · Requiere internet",
+                        title: "Cómo conocer la voluntad de Dios",
+                        source: "R.C. Sproul · Renovando Tu Mente",
+                        url: "https://es.ligonier.org/videos/como-enfrentar-problemas-dificiles/como-conocer-la-voluntad-de-dios/",
+                        cta: "Escuchar programa ↗",
+                        description: "Distingue la voluntad revelada de Dios de Su voluntad secreta y corrige la expectativa de conocer por adelantado todo el futuro."
+                    },
+                    {
+                        kind: "Artículo · Español · Requiere internet",
+                        title: "Dios quiere que conozcamos Su sabiduría",
+                        source: "Kevin DeYoung · Coalición por el Evangelio",
+                        url: "https://www.coalicionporelevangelio.org/articulo/dios-quiere-conozcamos-sabiduria-vida-piadosa/",
+                        cta: "Abrir artículo ↗",
+                        description: "Explica que Dios forma personas sabias mediante Su Palabra en vez de exigir que adivinen el futuro."
+                    },
+                    {
+                        kind: "Artículo · Español · Requiere internet",
+                        title: "El sentimiento de paz no es suficiente para tomar decisiones",
+                        source: "Patricia Namnún · Coalición por el Evangelio",
+                        url: "https://www.coalicionporelevangelio.org/articulo/sentimiento-de-paz-no-es-suficiente/",
+                        cta: "Abrir artículo ↗",
+                        description: "Ofrece filtros bíblicos para no convertir una sensación de tranquilidad o ansiedad en la voz de Dios."
+                    }
+                ]
+            },
+            solo: {
+                title: "Solo",
+                recognition: "La soledad duele porque fuimos creados para conocer a Dios y vivir en relación con otros. Puedes admitir ese anhelo sin vergüenza.",
+                passage: "Salmo 27",
+                scriptureUrl: "https://www.biblegateway.com/passage/?search=Salmos%2027&version=LBLA",
+                quote: "“El Señor es mi luz y mi salvación; ¿a quién temeré?”",
+                quoteCite: "Salmo 27:1 · LBLA",
+                context: "David habla en medio de amenazas, abandono y espera. Su confianza no elimina la necesidad de clamar: pide que Dios no lo esconda de Su rostro y afirma que, aunque los más cercanos lo abandonen, el Señor lo recogerá. El salmo une presencia, adoración, petición y espera. Dios es refugio personal, y también dirige al salmista hacia Su casa y Su pueblo.",
+                truth: "La presencia de Dios es una esperanza real, pero no convierte el aislamiento en ideal. Él nos recibe en Cristo y normalmente cuida a Su pueblo también mediante la iglesia, la amistad y el servicio mutuo.",
+                prayer: "Señor, me siento solo y anhelo ser conocido y acompañado. Gracias porque no apartas Tu rostro de quienes están en Cristo. Hazme consciente de Tu presencia, guíame hacia una comunión fiel y dame valor para acercarme a otros sin exigirles que ocupen el lugar que solo Tú puedes llenar. Amén.",
+                steps: [
+                    "Lee Salmo 27 y marca cada petición que David dirige a Dios además de sus afirmaciones de confianza.",
+                    "Escribe el nombre de una persona madura con quien puedas hablar honestamente hoy y envíale un mensaje concreto.",
+                    "Busca una manera pequeña de acercarte a la comunidad de tu iglesia o acompañar tú mismo a alguien que también esté solo."
+                ],
+                resources: [
+                    {
+                        kind: "Artículo · Español · Requiere internet",
+                        title: "La epidemia de la soledad",
+                        source: "Thomas Brewer · Ministerios Ligonier",
+                        url: "https://es.ligonier.org/articulos/la-epidemia-de-la-soledad/",
+                        cta: "Abrir artículo ↗",
+                        description: "Une la promesa de la presencia de Dios con el llamado práctico a recibir, acompañar y servir a personas solitarias."
+                    },
+                    {
+                        kind: "Artículo · Español · Requiere internet",
+                        title: "La soledad del aislamiento",
+                        source: "Betty-Anne Van Rees · Coalición por el Evangelio",
+                        url: "https://www.coalicionporelevangelio.org/articulo/la-soledad-del-aislamiento/",
+                        cta: "Abrir artículo ↗",
+                        description: "Reconoce el dolor legítimo de estar solo y lo sitúa bajo el cuidado providencial y consolador de Dios."
+                    },
+                    {
+                        kind: "Artículo y audio · Español · Requiere internet",
+                        title: "El costo de ser un cristiano solitario",
+                        source: "John Piper · Coalición por el Evangelio",
+                        url: "https://www.coalicionporelevangelio.org/articulo/costo-cristiano-solitario/",
+                        cta: "Abrir recurso ↗",
+                        description: "Muestra por qué la presencia de Cristo y las amistades cristianas no compiten, sino que forman parte de la vida de Su pueblo."
+                    }
+                ]
+            },
+            agradecido: {
+                title: "Agradecido",
+                recognition: "La gratitud puede convertirse en adoración: no solo notar el regalo, sino recordar y bendecir al Dador.",
+                passage: "Salmo 103:1-5",
+                scriptureUrl: "https://www.biblegateway.com/passage/?search=Salmos%20103%3A1-5&version=LBLA",
+                quote: "“Bendice, alma mía, al Señor, y no olvides ninguno de sus beneficios.”",
+                quoteCite: "Salmo 103:2 · LBLA",
+                context: "David habla deliberadamente a su propia alma para que recuerde y adore. Enumera beneficios concretos del Señor: perdón, compasión, rescate y cuidado. El salmo completo amplía esa memoria hacia el carácter misericordioso de Dios y la fragilidad humana. La gratitud bíblica no es optimismo vacío; responde a quién Dios es y a lo que realmente ha hecho.",
+                truth: "Agradecer es recordar con verdad la gracia recibida y responder al Dador con adoración. Podemos lamentar lo malo sin llamarlo bueno y, al mismo tiempo, reconocer la bondad real de Dios en medio de nuestras circunstancias.",
+                prayer: "Señor, bendigo Tu nombre y reconozco que todo bien que tengo procede de Ti. Perdóname cuando recibo Tus dones sin recordarte. Gracias por Tu misericordia, Tu cuidado y, sobre todo, por la salvación en Cristo. Haz que mi gratitud produzca adoración, contentamiento y generosidad hacia otros. Amén.",
+                steps: [
+                    "Lee Salmo 103:1-5 y nombra cada acción que el salmista atribuye al Señor.",
+                    "Escribe tres dádivas concretas recibidas hoy y explica qué revelan del carácter de Dios.",
+                    "Expresa una de esas gracias en oración y convierte otra en una acción de servicio o generosidad."
+                ],
+                resources: [
+                    {
+                        kind: "Artículo · Español · Requiere internet",
+                        title: "La gratitud verdadera",
+                        source: "David P. Murray · Ministerios Ligonier",
+                        url: "https://es.ligonier.org/articulos/gratitud-verdadera/",
+                        cta: "Abrir artículo ↗",
+                        description: "Distingue la gratitud bíblica del pensamiento positivo que ignora el dolor y muestra cómo agradecer con verdad en circunstancias difíciles."
+                    },
+                    {
+                        kind: "Artículo práctico · Español · Requiere internet",
+                        title: "6 principios para cultivar la gratitud",
+                        source: "Patricia Namnún · Coalición por el Evangelio",
+                        url: "https://www.coalicionporelevangelio.org/articulo/principios-cultivar-gratitud/",
+                        cta: "Abrir artículo ↗",
+                        description: "Propone prácticas para pedir un corazón agradecido, confesar el orgullo y recordar intencionalmente la gracia recibida."
+                    },
+                    {
+                        kind: "Devocional · Español · Requiere internet",
+                        title: "Gratitud",
+                        source: "Juan Gómez · Coalición por el Evangelio",
+                        url: "https://www.coalicionporelevangelio.org/articulo/gratitud-devocional/",
+                        cta: "Abrir devocional ↗",
+                        description: "Una reflexión breve desde Salmo 103:2 que anima a recordar en voz alta las bendiciones de Dios y la obra de Cristo."
+                    }
+                ]
+            },
+            conflicto: {
+                title: "Tenemos un conflicto",
+                recognition: "El objetivo no es ganar la discusión, sino honrar a Dios con verdad, humildad, justicia y amor.",
+                passage: "Colosenses 3:12-15",
+                scriptureUrl: "https://www.biblegateway.com/passage/?search=Colosenses%203%3A12-15&version=LBLA",
+                quote: "“Como Cristo os perdonó, así también hacedlo vosotros.”",
+                quoteCite: "Colosenses 3:13 · LBLA",
+                context: "Pablo dirige estas palabras a quienes ya han sido llamados santos y amados en Cristo. Por eso les manda vestirse de compasión, bondad, humildad, mansedumbre, paciencia, perdón y amor. La paz no se construye ocultando la verdad ni fingiendo que no hubo daño; nace de identidades transformadas por el evangelio y de respuestas coherentes con el perdón de Cristo.",
+                truth: "La reconciliación bíblica busca verdad, arrepentimiento, perdón y paz. Cada persona debe examinar primero su propio pecado, escuchar con humildad y hablar para restaurar, no para castigar. El resultado final no depende enteramente de una sola parte.",
+                prayer: "Padre, conoces completamente lo que pasó y el corazón de cada uno. Danos humildad para reconocer nuestra propia responsabilidad, mansedumbre para escuchar y valentía para hablar con verdad. Líbranos del orgullo, la manipulación, la amargura y el deseo de ganar. Recuérdanos cómo nos perdonaste en Cristo y guíanos hacia una paz que no sacrifique la verdad ni la justicia. Amén.",
+                steps: [
+                    "Cada uno ore y examine su propia responsabilidad antes de preparar una defensa contra el otro.",
+                    "Describan el hecho concreto, cómo afectó la relación y qué necesita ser reconocido, evitando insultos, exageraciones y adivinación de motivos.",
+                    "Escuchen y repitan con sus palabras lo que entendieron antes de responder. Si hubo pecado, confiésenlo con claridad y acuerden un paso verificable de reparación."
+                ],
+                caution: "Buscar la paz no significa tolerar intimidación, amenazas, control, violencia o abuso. En una situación insegura, no enfrentes a la persona a solas ni uses esta guía como sustituto de ayuda. Busca protección y consejo de personas confiables, pastores responsables y, cuando corresponda, autoridades competentes.",
+                resources: [
+                    {
+                        kind: "Artículo · Español · Requiere internet",
+                        title: "Cómo resolver bíblicamente los conflictos",
+                        source: "Dan Dodds · Ministerios Ligonier",
+                        url: "https://es.ligonier.org/articulos/como-resolver-biblicamente-los-conflictos/",
+                        cta: "Abrir artículo ↗",
+                        description: "Presenta principios de paz, autoexamen, confrontación amorosa y ayuda de la iglesia, con una advertencia para situaciones en las que confrontar no sería sabio."
+                    },
+                    {
+                        kind: "Artículo · Español · Requiere internet",
+                        title: "Conflicto y paz",
+                        source: "Burk Parsons · Ministerios Ligonier",
+                        url: "https://es.ligonier.org/articulos/conflicto-y-paz/",
+                        cta: "Abrir artículo ↗",
+                        description: "Explica que la paz auténtica requiere verdad, gracia, humildad, arrepentimiento y perdón, no una reconciliación superficial."
+                    },
+                    {
+                        kind: "Guía de oración · Español · Requiere internet",
+                        title: "5 oraciones para cuando ocurre un conflicto",
+                        source: "Gavin Ortlund · Coalición por el Evangelio",
+                        url: "https://www.coalicionporelevangelio.org/articulo/5-oraciones-para-cuando-ocurre-un-conflicto/",
+                        cta: "Abrir guía ↗",
+                        description: "Ayuda a pedir misericordia, humildad y una mirada puesta en Cristo mientras se busca una respuesta justa y restauradora."
+                    }
+                ]
+            }
+        };
+
+        const refugeSection = document.getElementById("refugio");
+        const refugeHome = document.getElementById("refuge-home");
+        const refugeResource = document.getElementById("refuge-resource");
+        const refugeResourceTitle = document.getElementById("refuge-resource-title");
+        const resourceRecognition = document.getElementById("resource-recognition");
+        const resourcePassage = document.getElementById("resource-passage");
+        const resourceScriptureLink = document.getElementById("resource-scripture-link");
+        const resourceQuote = document.getElementById("resource-quote");
+        const resourceQuoteCite = document.getElementById("resource-quote-cite");
+        const resourceContext = document.getElementById("resource-context");
+        const resourceTruth = document.getElementById("resource-truth");
+        const resourcePrayer = document.getElementById("resource-prayer");
+        const resourceSteps = document.getElementById("resource-steps");
+        const resourceCautionSection = document.getElementById("resource-caution-section");
+        const resourceCaution = document.getElementById("resource-caution");
+        const resourceDeeperList = document.getElementById("resource-deeper-list");
+
+        function renderRefugeGuide(guide) {
+            refugeResourceTitle.textContent = guide.title;
+            resourceRecognition.textContent = guide.recognition;
+            resourcePassage.textContent = guide.passage;
+            resourceScriptureLink.href = guide.scriptureUrl;
+            resourceQuote.textContent = guide.quote;
+            resourceQuoteCite.textContent = guide.quoteCite;
+            resourceContext.textContent = guide.context;
+            resourceTruth.textContent = guide.truth;
+            resourcePrayer.textContent = guide.prayer;
+
+            resourceSteps.replaceChildren(...guide.steps.map((step) => {
+                const item = document.createElement("li");
+                item.textContent = step;
+                return item;
+            }));
+
+            resourceCautionSection.hidden = !guide.caution;
+            resourceCaution.textContent = guide.caution || "";
+
+            resourceDeeperList.replaceChildren(...guide.resources.map((resource) => {
+                const card = document.createElement("article");
+                card.className = "deeper-resource-card";
+
+                const headingGroup = document.createElement("div");
+                const kind = document.createElement("p");
+                kind.className = "deeper-resource-kind";
+                kind.textContent = resource.kind;
+                const title = document.createElement("h4");
+                title.textContent = resource.title;
+                const source = document.createElement("p");
+                source.className = "deeper-resource-source";
+                source.textContent = resource.source;
+                headingGroup.append(kind, title, source);
+
+                const link = document.createElement("a");
+                link.className = "deeper-resource-link";
+                link.href = resource.url;
+                link.target = "_blank";
+                link.rel = "noopener noreferrer";
+                link.textContent = resource.cta;
+
+                const description = document.createElement("p");
+                description.className = "deeper-resource-description";
+                description.textContent = resource.description;
+
+                card.append(headingGroup, link, description);
+                return card;
+            }));
+        }
+
+        function syncRefugeRoute({ moveFocus = false } = {}) {
+            const routeMatch = window.location.hash.match(/^#refugio\/([a-z]+)$/);
+            const guide = routeMatch ? refugeGuides[routeMatch[1]] : null;
+            const showingResource = Boolean(guide);
+
+            refugeHome.hidden = showingResource;
+            refugeResource.hidden = !showingResource;
+
+            if (showingResource) {
+                renderRefugeGuide(guide);
+                player.pause();
+                refugeSection.scrollIntoView({
+                    behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+                    block: "start"
+                });
+
+                if (moveFocus) {
+                    window.setTimeout(() => refugeResourceTitle.focus({ preventScroll: true }), 260);
+                }
+            }
+        }
+
+        window.addEventListener("hashchange", () => syncRefugeRoute({ moveFocus: true }));
+        syncRefugeRoute();
+
+        if ("IntersectionObserver" in window) {
+            const refugeObserver = new IntersectionObserver((entries) => {
+                const refugeIsVisible = entries.some((entry) => entry.isIntersecting && entry.intersectionRatio >= 0.55);
+                if (refugeIsVisible && !player.paused) {
+                    player.pause();
+                }
+            }, { threshold: [0.55] });
+
+            refugeObserver.observe(refugeSection);
+        }
 
         if ("serviceWorker" in navigator) {
             window.addEventListener("load", async () => {
