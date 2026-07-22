@@ -1,5 +1,5 @@
 // Cambia este número en cada publicación para renovar los archivos guardados.
-const APP_VERSION = "romantic-countdown-v14-compact-player-right";
+const APP_VERSION = "romantic-countdown-v18-refuge-next-to-music";
 const SHELL_CACHE = `${APP_VERSION}-shell`;
 const PHOTO_CACHE = `${APP_VERSION}-photos`;
 // Cambia esta versión únicamente cuando cambien los archivos de música.
@@ -11,7 +11,7 @@ const MUSIC_FILES = [
 const APP_SHELL = [
     "./",
     "./index.html",
-    "./manifest.webmanifest",
+    "./manifest.webmanifest?v=18-countdown-refuge",
     "./assets/photo.jpg",
     "./assets/puerto-rico-silhouette.png",
     "./assets/colombia-silhouette.png",
